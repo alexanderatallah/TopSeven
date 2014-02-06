@@ -1,0 +1,14 @@
+.article-list {
+  padding: 0px;
+}
+
+  .article-list .list-group-item {
+    clear: both;
+  }
+
+.rank {
+  height: 75px;
+  width: 30px;
+  float: left;
+  padding-top: 25px;
+}

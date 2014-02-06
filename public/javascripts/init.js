@@ -3,6 +3,7 @@
 // Call this function when the page loads (the "ready" event)
 $(document).ready(function() {
   initPage();
+  articleClick();
 })
 
 /*
@@ -10,4 +11,13 @@ $(document).ready(function() {
  */
 function initPage() {
   // add any functionality and listeners you want here
+}
+
+function articleClick() {
+  $(".article-list .list-group-item").click(function() {
+    $(this).closest(".article-list")
+      .find(".list-group-item.active")
+      .removeClass("active");
+    $(this).addClass("active");
+  });
 }

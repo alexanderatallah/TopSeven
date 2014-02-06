@@ -4,12 +4,12 @@
  */
 
 var express = require('express');
-var routes = require('./routes');
 var http = require('http');
 var path = require('path');
 var handlebars = require('express3-handlebars');
 
-var user = require('./routes/user');
+var welcome = require('./routes/welcome');
+var articles = require('./routes/articles');
 
 // Engines
 var app = express();
@@ -36,8 +36,9 @@ if ('development' == app.get('env')) {
 }
 
 // Routes
-app.get('/', routes.index);
-app.get('/users', user.list);
+app.get('/', welcome.welcomePage);
+app.get('/index', articles.indexPage);
+app.get('/article', articles.articlePage);
 
 // Partials
 handlebars.create().loadPartials(function (err, partials) {
