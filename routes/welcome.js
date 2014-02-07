@@ -4,5 +4,5 @@
  */
 
 exports.welcomePage = function(req, res){
-  res.render('welcome', { title: 'Express' });
+  res.render('welcome', { title: 'Top Seven' });
 };
