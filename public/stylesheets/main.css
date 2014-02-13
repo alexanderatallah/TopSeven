@@ -79,6 +79,12 @@ img {
   height: 500px;
 }
 
+/* CUSTOMIZE FULL ELEMENTS
+-------------------------------------------------- */
 
+iframe {
+  border: 0;
+  box-shadow: 0px 0px 10px rgb(150, 150, 150);
+}
 
 
