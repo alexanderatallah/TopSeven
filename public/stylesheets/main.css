@@ -16,10 +16,6 @@ body {
   color: #5a5a5a;
 }
 
-.btn-success {
-  text-align: center;
-}
-
 
 /* CUSTOMIZE THE NAVBAR
 -------------------------------------------------- */
@@ -41,6 +37,12 @@ body {
 .navbar-wrapper .navbar {
   padding-left: 15px;
   padding-right: 15px;
+}
+
+/* Add padding to icons */
+img {
+  padding-right: 20px;
+  padding-left:5px;
 }
 
 
