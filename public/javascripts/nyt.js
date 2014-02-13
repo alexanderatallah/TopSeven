@@ -50,6 +50,31 @@ window.NYT = {
    * @public
    */
   saveArticles: function(articles) {
-    localStorage['articles'] = articles;
-  }
+    localStorage['articles'] = JSON.stringify(articles);
+  },
+
+  /**
+   * Loads articles
+   * 
+   * @public
+   */
+  loadArticles: function(articles) {
+    return JSON.parse(localStorage['articles']);
+  },
+
+  /**
+   * Gets an article by id
+   *
+   * @optional articles, a cached JSON version
+   *
+   * @public
+   */
+  getArticle: function(id, articles) {
+    var articles = articles || this.loadArticles();
+    for (var i = 0; i < articles.length; i++) {
+      var article = articles[i];
+      if (article.id == id) return article;
+    }
+    return null;
+  },
 };

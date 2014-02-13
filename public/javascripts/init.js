@@ -4,16 +4,15 @@ var SEVEN = 7;
 
 // Call this function when the page loads (the "ready" event)
 $(document).ready(function() {
-  initPage();
+  initArticles();
   articleClick();
-  refresherClick();
+  $("#refresher").click(refreshArticles);
 })
 
-/*
- * Function that is called when the document is ready.
- */
-function initPage() {
-  // add any functionality and listeners you want here
+function initArticles() {
+  var articles = NYT.loadArticles();
+  if (!articles || articles.length == 0) refreshArticles();
+  else replaceArticles(articles);
 }
 
 function articleClick() {
@@ -25,14 +24,12 @@ function articleClick() {
   });
 }
 
-function refresherClick() {
-  $("#refresher").click(function() {
-    var spinner = $(this).find(".spinner-inline");
-    spinner.addClass("spin");
-    NYT.fetchArticles(function(results) {
-      spinner.removeClass("spin");
-      replaceArticles(results);
-    });
+function refreshArticles() {
+  var spinner = $("#refresher").find(".spinner-inline");
+  spinner.addClass("spin");
+  NYT.fetchArticles(function(results) {
+    spinner.removeClass("spin");
+    replaceArticles(results);
   });
 }
 
