@@ -32,9 +32,7 @@ function swiping() {
       }
     },
     tap:function(event,target){
-      //console.log(event);
-      console.log($(target).closest('a').href);
-      // window.location = url;
+      window.location = $(target).closest('a')[0].href;
     }
   });
 
@@ -63,7 +61,7 @@ function refreshArticles() {
 
 function replaceArticles(articles) {
   var template = function(article) {
-    return '<a href="/article?id=' + article.id +'" class="list-group-item">' +
+    return '<a href="/article?id=' + article.id +'" class="list-group-item swipe">' +
       '<div class="rank">' + article.rank + '</div>' + 
       '<h4 class="list-group-item-heading">' + article.title + '</h4>' +
       '<p class="list-group-item-text">' + article.abstract + '</p>' + 
