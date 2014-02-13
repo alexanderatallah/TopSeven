@@ -21,14 +21,18 @@ function swiping() {
     swipe:function(event,direction,distance,duration,fingerCount) {
       event.preventDefault();
       console.log(direction);
+      var id = $(this).closest('a')[0].href.substring(33);
+      console.log(id);
       $(this).hide();
+      var article = NYT.getArticle(id);
+      
       if(direction == 'right'){
         //move JSON object article to the "saved articles" list
-
+        NYT.addSavedArticle(article);  
       }
       if(direction == 'left'){
         //move JSON object article to the "deleted articles" list
-
+        NYT.deleteArticle(article);
       }
     },
     tap:function(event,target){
@@ -66,7 +70,7 @@ function replaceArticles(articles) {
       var metadata = article.media[0]['media-metadata'];
       thumbnail = '<img src="' + metadata[0].url + '" class="thumbnail" />';
     }
-    return '<a href="/article?id=' + article.id +'" class="list-group-item">' +
+    return '<a href="/article?id=' + article.id +'" class="list-group-item swipe">' +
       '<div class="rank">' + article.rank + '</div>' + 
       thumbnail +
       '<h4 class="list-group-item-heading">' + article.title + '</h4>' +
