@@ -33,6 +33,23 @@ window.NYT = {
    */
   parseArticles_: function(data, callback) {
     console.log(data);
-    callback(data);
+    var articles = data.results;
+
+    for(var i = 0; i < articles.length; i++) {
+      var article = articles[i];
+      article.rank = i + 1;
+    }
+
+    this.saveArticles(articles);
+    callback(articles);
+  },
+
+  /**
+   * Saves articles
+   * 
+   * @public
+   */
+  saveArticles: function(articles) {
+    localStorage['articles'] = articles;
   }
 };
