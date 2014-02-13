@@ -43,6 +43,11 @@ body {
   padding-right: 15px;
 }
 
+#refresher {
+  background-color: rgb(51, 51, 51);
+  color: rgb(173, 173, 173);
+  margin: 5px;
+}
 
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */

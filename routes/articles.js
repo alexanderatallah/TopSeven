@@ -4,7 +4,7 @@
  */
 
 exports.indexPage = function(req, res){
-  res.render('index', { title: 'Express' });
+  res.render('index');
 };
 
 
@@ -13,9 +13,9 @@ exports.indexPage = function(req, res){
  */
 
 exports.articlePage = function(req, res){
-  var article = {
-    title: req.query.title,
-    url: req.query.url
-  };
-  res.render('article', article);
+  // var article = {
+  //   title: req.query.title,
+  //   url: req.query.url
+  // };
+  res.render('article');
 };
