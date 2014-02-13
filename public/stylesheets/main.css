@@ -7,6 +7,10 @@ a {
   color: #00B7FF;
 }
 
+.btn-start {
+  width:100%;
+}
+
 /* GLOBAL STYLES
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */

@@ -27,7 +27,7 @@ window.NYT = {
   },
 
   /**
-   * Parses NYT articles
+   * Parses NYT articles, adding rank, etc.
    *
    * @private
    */
@@ -65,16 +65,43 @@ window.NYT = {
   /**
    * Gets an article by id
    *
-   * @optional articles, a cached JSON version
+   * @optional _cachedArticles, a cached JSON version
    *
    * @public
    */
-  getArticle: function(id, articles) {
-    var articles = articles || this.loadArticles();
+  getArticle: function(id, _cachedArticles) {
+    var articles = _cachedArticles || this.loadArticles();
     for (var i = 0; i < articles.length; i++) {
       var article = articles[i];
       if (article.id == id) return article;
     }
     return null;
   },
+
+  /**
+   * Marks an article as deleted
+   *
+   * @optional articles, a cached JSON version
+   *
+   * @public
+   */
+  deleteArticle: function(article, _cachedArticles) {
+    var articles = _cachedArticles || this.loadArticles();
+    this.saveDelete_(article);
+    for (var i = 0; i < articles.length; i++) {
+      var a = articles[i];
+      if (a.id == article.id) {
+        articles.splice(i,1);
+        this.saveArticles(articles);
+        return;
+      }
+    }
+  },
+
+  // @private
+  saveDelete_: function(article) {
+    var deleted = JSON.parse(localStorage['deleted-articles']);
+    deleted.unshift(article);
+    localStorage['deleted-articles'] = JSON.stringify(deleted);
+  }
 };

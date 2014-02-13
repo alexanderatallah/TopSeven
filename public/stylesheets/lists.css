@@ -4,11 +4,18 @@
 
   .article-list .list-group-item {
     clear: both;
+    overflow: hidden;
   }
 
 .rank {
-  height: 75px;
+  height: 26px;
   width: 30px;
   float: left;
-  padding-top: 25px;
+  padding-top: 8px;
+}
+
+.thumbnail {
+  float: right;
+  margin-left: 5px;
+  margin-bottom: 5px;
 }
