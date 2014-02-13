@@ -35,8 +35,14 @@ function refreshArticles() {
 
 function replaceArticles(articles) {
   var template = function(article) {
+    var thumbnail = "";
+    if (article.media && article.media[0].type=="image") {
+      var metadata = article.media[0]['media-metadata'];
+      thumbnail = '<img src="' + metadata[0].url + '" class="thumbnail" />';
+    }
     return '<a href="/article?id=' + article.id +'" class="list-group-item">' +
       '<div class="rank">' + article.rank + '</div>' + 
+      thumbnail +
       '<h4 class="list-group-item-heading">' + article.title + '</h4>' +
       '<p class="list-group-item-text">' + article.abstract + '</p>' + 
     '</a>';

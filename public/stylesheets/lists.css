@@ -4,6 +4,7 @@
 
   .article-list .list-group-item {
     clear: both;
+    overflow: hidden;
   }
 
 .rank {
@@ -11,4 +12,10 @@
   width: 30px;
   float: left;
   padding-top: 8px;
+}
+
+.thumbnail {
+  float: right;
+  margin-left: 5px;
+  margin-bottom: 5px;
 }
