@@ -8,9 +8,12 @@
   <!-- <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-theme.css"> -->
   <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
   <link rel="stylesheet" type="text/css" href="stylesheets/lists.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/indicators.css">
 
-  <!-- PUT SCRIPTS BEFORE </body> TAG! -->
-
+  <!-- PUT SCRIPTS BEFORE </body> TAG! 
+  except for jQuery and bootstrap -->
+  <script type="text/javascript" src="javascripts/jquery-min.js"></script>
+  <script type="text/javascript" src="javascripts/bootstrap.js"></script>
 </head>
 <body>
 
@@ -27,13 +30,16 @@
                 <span class="icon-bar"></span>
               </button>
               <a class="navbar-brand" href="/index">Seven</a>
+              <button class="btn has-spinner" id="refresher">
+                <span class="glyphicon glyphicon-refresh spinner-inline" style="display:inline-block"></span>
+              </button>
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav">
-                <li class="active"><a href="#"><img src="icons/home.png"alt="home icon">Home</a></li>
-                <li><a href="#saved"><img src="icons/saved.png"alt="saved icon">Saved Articles</a></li>
-                <li><a href="#deleted"><img src="icons/trash.png"alt="trash icon">Deleted Articles</a></li>
-                <li><a href="#help"><img src="icons/help.png"alt="help icon">Help</a></li>
+                <li class="active"><a href="/index"><img src="icons/home.png"alt="home icon">Home</a></li>
+                <li><a href="/saved"><img src="icons/saved.png"alt="saved icon">Saved Articles</a></li>
+                <li><a href="/deleted"><img src="icons/trash.png"alt="trash icon">Deleted Articles</a></li>
+                <li><a href="/help"><img src="icons/help.png"alt="help icon">Help</a></li>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="icons/settings.png"alt="settings icon">Settings <b class="caret"></b></a>
                   <ul class="dropdown-menu">
@@ -54,10 +60,9 @@
     
   </div>
   </div>
-
-  <script type="text/javascript" src="javascripts/jquery-min.js"></script>
-  <!-- <script type="text/javascript" src="javascripts/jquery.mobile-1.4.1.min.js"></script> -->
-  <script type="text/javascript" src="javascripts/bootstrap.js"></script>
+  
+  <script type="text/javascript" src="javascripts/nyt.js"></script>
+  <script type="text/javascript" src="javascripts/utils.js"></script>
   <script type="text/javascript" src="javascripts/init.js"></script>
   <script type="text/javascript" src="javascripts/jqueryTouchSwipe.min.js"></script>
   
