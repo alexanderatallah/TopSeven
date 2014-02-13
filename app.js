@@ -10,6 +10,8 @@ var handlebars = require('express3-handlebars');
 
 var welcome = require('./routes/welcome');
 var articles = require('./routes/articles');
+var saved = require('./routes/saved');
+var trash = require('./routes/trash');
 
 // Engines
 var app = express();
@@ -39,6 +41,8 @@ if ('development' == app.get('env')) {
 app.get('/', welcome.welcomePage);
 app.get('/index', articles.indexPage);
 app.get('/article', articles.articlePage);
+app.get('/saved', saved.savedPages);
+app.get('/trash', trash.deletedPages);
 
 // Partials
 handlebars.create().loadPartials(function (err, partials) {
