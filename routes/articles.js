@@ -19,3 +19,4 @@ exports.articlePage = function(req, res){
   // };
   res.render('article');
 };
+
