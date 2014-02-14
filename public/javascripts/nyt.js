@@ -59,7 +59,8 @@ window.NYT = {
    * @public
    */
   loadArticles: function(articles) {
-    return JSON.parse(localStorage['articles']);
+    if(localStorage['articles'] != null)
+      return JSON.parse(localStorage['articles']);
   },
 
   /**
@@ -100,8 +101,44 @@ window.NYT = {
 
   // @private
   saveDelete_: function(article) {
-    var deleted = JSON.parse(localStorage['deleted-articles']);
-    deleted.unshift(article);
-    localStorage['deleted-articles'] = JSON.stringify(deleted);
-  }
+    var delArts = localStorage['deleted-articles'];
+    if(delArts != null){
+      var deleted = JSON.parse(delArts);
+      deleted.unshift(article);
+      localStorage['deleted-articles'] = JSON.stringify(deleted);
+    }
+    else{
+      var deleted = [];
+      deleted.unshift(article);
+      localStorage['deleted-articles'] = JSON.stringify(deleted);
+    }
+  },
+
+  addSavedArticle: function(article,_cachedArticles) {
+    var articles = _cachedArticles || this.loadArticles();
+    this.saveSaved_(article);
+    for (var i = 0; i < articles.length; i++) {
+      var a = articles[i];
+      if (a.id == article.id) {
+        articles.splice(i,1);
+        this.saveArticles(articles);
+        return;
+      }
+    }
+  },
+
+  // @private
+  saveSaved_: function(article) {
+    var saveArts = localStorage['saved-articles'];
+    if(saveArts != null){
+      var saved = [JSON.parse(localStorage['saved-articles'])];
+      saved.unshift(article);
+      localStorage['saved-articles'] = JSON.stringify(saved);
+    }
+    else {
+      var saved = [];
+      saved.unshift(article);
+      localStorage['saved-articles'] = JSON.stringify(saved);
+    }
+  } 
 };
