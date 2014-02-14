@@ -83,4 +83,3 @@ function replaceArticles(articles) {
   $("#articleList").find('.list-group')
     .html(articleList);
   }
-}

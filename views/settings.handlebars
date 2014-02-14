@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help</title>
+  <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.css">
+  <!-- <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-theme.css"> -->
+  <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/settings.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/indicators.css">
+
+  <!-- PUT SCRIPTS BEFORE </body> TAG! 
+  except for jQuery and bootstrap -->
+  <script type="text/javascript" src="javascripts/jquery-min.js"></script>
+  <script type="text/javascript" src="javascripts/bootstrap.js"></script>
+</head>
+<body>
+
+<img src="{{imageURL}}" class="img-responsive img-circle">
+<h3 id="info">Account Info</h3>
+<h4><a href="#">{{username}}</a></h4>
+<h4><a href="#">{{email}}</a></h4>
+<h4><a href="#">{{password}}</a></h4>
+
+<hr>
+
+<h3 id="filters">Add Filters</h3>
+
+<button type="button" class="btn btn-info">Tech</button>
+<button type="button" class="btn btn-success">Politics</button>
+<button type="button" class="btn btn-warning">Economics</button>
+<button type="button" class="btn btn-primary">Fashion</button>
+<button type="button" class="btn btn-danger">Celebrity</button>
+<button type="button" class="btn btn-inverse">Sports</button>
+<hr>
+
+<button type="submit" class="btn btn-default" "submit">Save</button>
+
+</body>
+</html>

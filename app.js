@@ -12,6 +12,8 @@ var welcome = require('./routes/welcome');
 var articles = require('./routes/articles');
 var saved = require('./routes/saved');
 var trash = require('./routes/trash');
+var help = require('./routes/help');
+var settings = require('./routes/settings')
 
 // Engines
 var app = express();
@@ -43,6 +45,8 @@ app.get('/index', articles.indexPage);
 app.get('/article', articles.articlePage);
 app.get('/saved', saved.savedPages);
 app.get('/trash', trash.deletedPages);
+app.get('/help', help.helpPage);
+app.get('/settings',settings.settingsPage);
 
 // Partials
 handlebars.create().loadPartials(function (err, partials) {
