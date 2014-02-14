@@ -1,11 +1,10 @@
 /*
- * GET index page.
+ * GET deleted articles.
  */
 
-exports.indexPage = function(req, res){
-  res.render('index');
+exports.deletedPages = function(req, res){
+  res.render('trash');
 };
-
 
 /*
  * GET article page.
@@ -18,4 +17,3 @@ exports.articlePage = function(req, res){
   // };
   res.render('article');
 };
-

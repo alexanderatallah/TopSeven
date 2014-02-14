@@ -6,13 +6,39 @@ var SEVEN = 7;
 $(document).ready(function() {
   initArticles();
   articleClick();
+  swiping();
   $("#refresher").click(refreshArticles);
-})
+});
 
 function initArticles() {
   var articles = NYT.loadArticles();
   if (!articles || articles.length == 0) refreshArticles();
   else replaceArticles(articles);
+}
+
+function swiping() {
+  $('.swipe').swipe({
+    swipe:function(event,direction,distance,duration,fingerCount) {
+      event.preventDefault();
+      console.log(direction);
+      $(this).hide();
+      if(direction == 'right'){
+        //move JSON object article to the "saved articles" list
+
+      }
+      if(direction == 'left'){
+        //move JSON object article to the "deleted articles" list
+
+      }
+    },
+    tap:function(event,target){
+      window.location = $(target).closest('a')[0].href;
+    }
+  });
+
+  $('.swipe').click(function(e) {
+    e.preventDefault();
+  });
 }
 
 function articleClick() {
@@ -56,4 +82,4 @@ function replaceArticles(articles) {
 
   $("#articleList").find('.list-group')
     .html(articleList);
-}
+  }
