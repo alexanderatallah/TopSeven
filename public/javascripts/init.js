@@ -24,7 +24,6 @@ function swiping() {
       $(this).hide();
       if(direction == 'right'){
         //move JSON object article to the "saved articles" list
-
       }
       if(direction == 'left'){
         //move JSON object article to the "deleted articles" list
@@ -83,3 +82,14 @@ function replaceArticles(articles) {
   $("#articleList").find('.list-group')
     .html(articleList);
   }
+
+  var savedList = "";
+  for (var i = 0; i < articles.length; i++) {
+    var article = articles[i];
+    articleList += template(article);
+  }
+
+  $("#articleList").find('.list-group')
+    .html(savedList);
+  
+
