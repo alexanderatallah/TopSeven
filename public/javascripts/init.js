@@ -86,19 +86,9 @@ function replaceArticles(articles) {
 
   $("#articleList").find('.list-group')
     .html(articleList);
-  }
+}
 
  //EASILY GENERALIZABLE TO POPULATE SAVED + DELETED LISTS
-
-
-  // var savedList = "";
-  // for (var i = 0; i < articles.length; i++) {
-  //   var article = articles[i];
-  //   savedList += template(article);
-  // }
-
-  // $("#articleList").find('.list-group')
-  //   .html(savedList);
   
 
 
