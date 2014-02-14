@@ -59,7 +59,8 @@ window.NYT = {
    * @public
    */
   loadArticles: function(articles) {
-    return JSON.parse(localStorage['articles']);
+    if(localStorage['articles'] != null)
+      return JSON.parse(localStorage['articles']);
   },
 
   /**

@@ -87,4 +87,4 @@ function replaceArticles(articles) {
   $("#articleList").find('.list-group')
     .html(articleList);
   }
-}
+ //EASILY GENERALIZABLE TO POPULATE SAVED + DELETED LISTS
