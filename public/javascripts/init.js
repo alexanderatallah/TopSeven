@@ -83,13 +83,13 @@ function replaceArticles(articles) {
     .html(articleList);
   }
 
-  var savedList = "";
-  for (var i = 0; i < articles.length; i++) {
-    var article = articles[i];
-    articleList += template(article);
-  }
+  // var savedList = "";
+  // for (var i = 0; i < articles.length; i++) {
+  //   var article = articles[i];
+  //   savedList += template(article);
+  // }
 
-  $("#articleList").find('.list-group')
-    .html(savedList);
+  // $("#articleList").find('.list-group')
+  //   .html(savedList);
   
 
