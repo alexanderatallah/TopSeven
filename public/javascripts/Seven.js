@@ -120,7 +120,7 @@ window.Seven = {
    * @private
    */
   mostViewedURL_: function() {
-    return "http://api.nytimes.com/svc/mostpopular/v2/" + 
+    return "//api.nytimes.com/svc/mostpopular/v2/" + 
     "mostviewed/all-sections/7.jsonp?api-key=" + 
     this.API_KEY_;
   },
