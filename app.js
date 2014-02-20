@@ -7,13 +7,23 @@ var express = require('express');
 var http = require('http');
 var path = require('path');
 var handlebars = require('express3-handlebars');
+var mongoose = require('mongoose');
 
 var welcome = require('./routes/welcome');
 var articles = require('./routes/articles');
 var saved = require('./routes/saved');
 var trash = require('./routes/trash');
 var help = require('./routes/help');
-var settings = require('./routes/settings')
+var settings = require('./routes/settings');
+
+// Models
+var models = require('./models');
+
+// Connect to the Mongo database, whether locally or on Heroku
+var local_database_name = 'seven';
+var local_database_uri  = 'mongodb://localhost/' + local_database_name
+var database_uri = process.env.MONGOLAB_URI || local_database_uri
+mongoose.connect(database_uri);
 
 // Engines
 var app = express();
