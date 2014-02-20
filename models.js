@@ -5,4 +5,4 @@ var ArticleSchema = new mongoose.Schema({
   "view_count": Number
 });
 
-exports.Article = Mongoose.model('Article', ArticleSchema);
+exports.Article = mongoose.model('Article', ArticleSchema);
