@@ -4,6 +4,7 @@
 $(document).ready(function() {
   articleClick();
   $("#refresher").click(refreshArticles);
+  // scrollAnimation();
 });
 
 function articleClick() {
@@ -13,6 +14,38 @@ function articleClick() {
       .removeClass("active");
     $(this).addClass("active");
   });
+}
+
+function scrollAnimation() {
+  $(window).scroll(setCascade);
+  setCascade();
+
+  function setCascade() {
+    var edge = $(window).scrollTop();
+
+    $(".article-list .list-group-item").each(function(i) {
+      var thisEdge = $(this).offset().top;
+      if (thisEdge <= edge) return;
+      var zoomFactor = 4.0/Math.log(thisEdge - edge);
+      if (zoomFactor > 1) zoomFactor = 1;
+      $(this).css("zoom", zoomFactor);
+      // var fontSize = parseInt(14 - (thisEdge - edge)/40, 10);
+      // $(this).css({
+      //   'font-size': fontSize + 'px',
+      //   'height': fontSize*10 + 'px'
+      // });
+    });
+    // if (osMenu <= edge && osFoot > edge) {
+    //   elWrap.addClass("dock").removeClass("stop");
+    // }
+    // else {
+    //   elWrap.removeClass("dock stop");
+    // }
+    // if (osFoot <= edge) {
+    //   elMenu.css("top", osFoot);
+    //   elWrap.removeClass("dock").addClass("stop");
+    // }
+  }
 }
 
 function refreshArticles() {
@@ -50,14 +83,14 @@ function initDeletedArticles() {
 function replaceArticles(articles, _excludeSeen) {
   if (_excludeSeen === undefined) _excludeSeen = true;
 
-  var template = function(article) {
+  var template = function(article, i) {
     var thumbnail = "";
     if (article.media && article.media[0].type=="image") {
       var metadata = article.media[0]['media-metadata'];
       thumbnail = '<img src="' + metadata[0].url + '" class="thumbnail" />';
     }
     return '<a href="/article?id=' + article.id +'" class="list-group-item swipe">' +
-      '<div class="rank">' + article.rank + '</div>' + 
+      '<div class="rank">' + (i + 1) + '</div>' + 
       thumbnail +
       '<h4 class="list-group-item-heading">' + article.title + '</h4>' +
       '<p class="list-group-item-text">' + article.abstract + '</p>' + 
@@ -66,11 +99,17 @@ function replaceArticles(articles, _excludeSeen) {
 
   var articleList = "";
   var limit = _excludeSeen ? Seven.SEVEN : articles.length;
-  for (var i = 0; i < limit; i++) {
+  var i = 0;
+  while (i < limit) {
     var article = articles[i];
-    if (_excludeSeen && Seven.isSeen(article)) continue;
-    articleList += template(article);
+    if (_excludeSeen && Seven.isSeen(article)) {
+      if (limit < articles.length) limit++;
+    } else {
+      articleList += template(article, i); 
+    }
+    i++;
   }
+
 
   $(".article-list").find('.list-group')
     .html(articleList);

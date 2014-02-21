@@ -35,3 +35,22 @@ exports.articlePage = function(req, res){
   }
 };
 
+/*
+ * GET article info as JSON.
+ */
+
+exports.metadata = function(req, res){
+  var articleIds = req.query.articleIds;
+
+  models.Article
+    .where("article_id")
+    .in(articleIds)
+    .exec(afterQuery);
+
+  function afterQuery(err, results) {
+    if(err) console.log(err);
+    // console.log(results);
+    res.json(results);
+  }
+};
+

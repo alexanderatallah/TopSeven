@@ -2,6 +2,7 @@
 
 window.Seven = {
   SEVEN: 7,
+  VIEW_COUNT_WEIGHT: 2,
 
   /**
    * Saves articles
@@ -26,7 +27,7 @@ window.Seven = {
    * @public
    */
   loadArticles: function() {
-    return this.load_('articles');
+    return this.sort(this.load_('articles'));
   },
 
   loadSavedArticles: function() {
@@ -148,21 +149,40 @@ window.Seven = {
     console.log(data);
     var articles = data.results;
 
-    for(var i = 0; i < articles.length; i++) {
-      var article = articles[i];
-      article.rank = this.rankArticle(article, i);
-    }
+    var metadata_url = "/articles/metadata";
+    var articleIds = {"articleIds": _.pluck(articles, "id")};
+    $.get(metadata_url, articleIds, withArticleMetadata);
 
-    this.saveArticles(articles);
-    callback(articles);
+    function withArticleMetadata(metadata) {
+      _.each(articles, function(a, i) {
+        var metadatum = _.findWhere(metadata, {"article_id": a.id});
+        a.rank = Seven.rankArticle(a, metadatum, i);
+      });
+
+      Seven.saveArticles(articles);
+      callback(Seven.sort(articles));
+    }
   },
 
   /**
    * Ranks an article
    * @optional _i index of article in list
+   * @optional _metadata article info from server
    * @public
    */
-  rankArticle: function(article, _i) {
-    return article.views || ((_i || 0) + 1);
+  rankArticle: function(article, _metadatum, _i) {
+    if (_metadatum && _metadatum.view_count) {
+      return article.views - this.VIEW_COUNT_WEIGHT*Math.log(_metadatum.view_count);
+    } else {
+      return article.views;
+    }
+  },
+
+  /**
+   * Sorts articles by rank
+   * @public
+   */
+  sort: function(articles) {
+    return _.sortBy(articles, "rank");
   }
 }

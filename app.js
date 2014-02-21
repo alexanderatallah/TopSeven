@@ -50,6 +50,7 @@ if ('development' == app.get('env')) {
 app.get('/', welcome.welcomePage);
 app.get('/index', articles.indexPage);
 app.get('/article', articles.articlePage);
+app.get('/articles/metadata', articles.metadata);
 app.get('/saved', saved.savedPages);
 app.get('/trash', trash.deletedPages);
 app.get('/help', help.helpPage);
