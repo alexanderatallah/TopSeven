@@ -18,7 +18,7 @@ function articleClick() {
 }
 
 function scrollAnimation() {
-  $(window).scroll(setCascade);
+  $(window).off('scroll.cascade').on('scroll.cascade', setCascade);
   setCascade();
 
   function setCascade() {
@@ -111,11 +111,12 @@ function replaceArticles(articles, _excludeSeen) {
 }
 
 function enableSwiping() {
+  var animationDuration = 300;
   $('.article-list').hammer().on("swipeleft", ".swipe", function(e) {
     var id = $(this).closest('a').data("id");
     console.log(id);
 
-    $(this).animate({position: 'relative', left: "-100%"}, 300, function() {
+    $(this).animate({position: 'relative', left: "-100%"}, animationDuration, function() {
       $(this).hide();
       scrollAnimation();
     });
@@ -126,7 +127,7 @@ function enableSwiping() {
     var id = $(this).closest('a').data("id");
     console.log(id);
 
-    $(this).animate({position: 'relative', left: "100%"}, 300, function() {
+    $(this).animate({position: 'relative', left: "100%"}, animationDuration, function() {
       $(this).hide();
       scrollAnimation();
     });
