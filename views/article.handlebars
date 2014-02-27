@@ -24,12 +24,10 @@
     $("#articleFrame").attr('src', article.url);
 
     $("#actionButtons .saveButton").click(function(e) {
-      e.preventDefault();
       Seven.saveArticle(article);
       window.location = "/";
     });
     $("#actionButtons .deleteButton").click(function(e) {
-      e.preventDefault();
       Seven.deleteArticle(article);
       window.location = "/";
     });
@@ -39,42 +37,23 @@
 
   function articleViewSwiping() {
     var animationDuration = 200;
-    var dragCutoff = 40;
+    var dragCutoff = 100;
 
     $('#articleTitle').hammer()
       .on("dragleft", function(e) {
         $(this).css({left: e.gesture.deltaX});
       })
       .on("dragend", function(e) {
-        if (e.gesture.deltaX < -1*dragCutoff) {
-          var target = -1*$('#actionButtons').width();
-          $(this).animate({left: target}, animationDuration, function() {
-            $(this).data('swiped', true);
-          });
-        } else if (e.gesture.deltaX > 2*dragCutoff) {
+        if (e.gesture.deltaX < 0) {
+          toggleButtons();
+        } else if (e.gesture.deltaX > dragCutoff) {
           if (!$(this).data('swiped'))
             window.history.back();
-        } else if (e.gesture.deltaX > 0) {
-          $(this).closest('.article').animate({left: 0}, animationDuration);
         } else {
-          $(this).animate({left: 0}, animationDuration);
+          $(this).closest('.article').animate({left: 0}, animationDuration);
         }
       })
-      // .on("dragleft", function(e) {
-
-        // var id = getParam("id");
-
-        // -1*$('#actionButtons').width()
-        // , , function() {
-        //     $(this).data('swiped', true);
-        // });
-
-
-        // var article = Seven.getArticle(id);
-
-        // Seven.saveArticle(article);
-
-      // })
+      .on("tap", toggleButtons)
       .on("dragright", function(e) {
         if ($(this).data('swiped')) {
           return $(this).animate({left: 0}, animationDuration, function() {
@@ -83,15 +62,25 @@
         } else {
           $(this).closest('.article').css({left: e.gesture.deltaX}); 
         }
-        // .animate({left: "100%"}, animationDuration, function() {
-        //   window.history.back();
-        // });
-
-        // Seven.saveArticle(article);
       });
 
     // $('.article-list').hammer().on("tap", ".swipe", function(e) {
     //   window.location = $(e.target).closest('a')[0].href;
     // });
+    function toggleButtons() {
+      var $title = $('#articleTitle');
+      if ($title.data('swiped')) {
+        $title.animate({left: 0}, animationDuration, function() {
+          $(this).data('swiped', false);
+        });
+      } else {
+        var target = -1*$('#actionButtons').width();
+        $title.animate({left: target}, animationDuration, function() {
+          $(this).data('swiped', true);
+        });
+      }
+    }
   }
+
+
 </script>

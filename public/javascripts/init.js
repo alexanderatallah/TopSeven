@@ -5,6 +5,7 @@ $(document).ready(function() {
   articleClick();
   $("#refresher").click(refreshArticles);
   enableSwiping();
+  $(window).hammer().on('drag', scrollAnimation);
   scrollAnimation();
 });
 
@@ -31,28 +32,24 @@ function articleClick() {
   });
 }
 
-function scrollAnimation() {
-  $(window).off('scroll.cascade').on('scroll.cascade', setCascade);
-  setCascade();
+function scrollAnimation(e) {
+  if (e && e.gesture.deltaY == 0) return;
+  var edge = $(window).scrollTop();
 
-  function setCascade() {
-    var edge = $(window).scrollTop();
-
-    $(".article-list .list-group-item").each(function(i) {
-      var thisEdge = $(this).offset().top;
-      if (thisEdge <= edge) return;
-      var zoomFactor = 14.0/Math.sqrt(thisEdge - edge);
-      if (zoomFactor > 1) zoomFactor = 1;
-      // console.log(zoomFactor);
-      var translateFactor = 16 - Math.pow(16, 1.0/zoomFactor);
-      // var translateFactor = -9.48665*Math.pow(zoomFactor, 2.12531);
-      // console.log(translateFactor);
-      $(this).css({
-        "-webkit-transform": "scale(" + zoomFactor + ") " +
-                             "translateY(" + translateFactor + "px)"
-      });
+  $(".article-list .list-group-item").each(function(i) {
+    var thisEdge = $(this).offset().top;
+    if (thisEdge <= edge) return;
+    var zoomFactor = 14.0/Math.sqrt(thisEdge - edge);
+    if (zoomFactor > 1) zoomFactor = 1;
+    // console.log(zoomFactor);
+    var translateFactor = 16 - Math.pow(16, 1.0/zoomFactor);
+    // var translateFactor = -9.48665*Math.pow(zoomFactor, 2.12531);
+    // console.log(translateFactor);
+    $(this).css({
+      "-webkit-transform": "scale(" + zoomFactor + ") " +
+                           "translateY(" + translateFactor + "px)"
     });
-  }
+  });
 }
 
 function refreshArticles() {
