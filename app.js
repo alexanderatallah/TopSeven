@@ -47,8 +47,7 @@ if ('development' == app.get('env')) {
 }
 
 // Routes
-app.get('/', welcome.welcomePage);
-app.get('/index', articles.indexPage);
+app.get('/', articles.indexPage);
 app.get('/article', articles.articlePage);
 app.get('/articles/metadata', articles.metadata);
 app.get('/saved', saved.savedPages);

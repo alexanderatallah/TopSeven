@@ -8,7 +8,6 @@ exports.indexPage = function(req, res){
   res.render('index');
 };
 
-
 /*
  * GET article page.
  */

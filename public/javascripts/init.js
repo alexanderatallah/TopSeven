@@ -8,6 +8,20 @@ $(document).ready(function() {
   scrollAnimation();
 });
 
+/**
+ * Checks if a helpers has been seen before, and
+ * if it has, hides it.
+ */
+function checkHelper(helperId) {
+  var helpers = localStorage.helpers ? JSON.parse(localStorage.helpers) : {};
+  if (helpers[helperId]) {
+    $("#" + helperId).hide();
+  } else {
+    helpers[helperId] = true;
+    localStorage.helpers = JSON.stringify(helpers);
+  }
+}
+
 function articleClick() {
   $(".article-list").on("click", ".list-group-item", function() {
     $(this).closest(".article-list")
@@ -27,10 +41,10 @@ function scrollAnimation() {
     $(".article-list .list-group-item").each(function(i) {
       var thisEdge = $(this).offset().top;
       if (thisEdge <= edge) return;
-      var zoomFactor = 4.0/Math.log(thisEdge - edge);
+      var zoomFactor = 14.0/Math.sqrt(thisEdge - edge);
       if (zoomFactor > 1) zoomFactor = 1;
       // console.log(zoomFactor);
-      var translateFactor = 15 - Math.pow(15, 1.0/zoomFactor);
+      var translateFactor = 16 - Math.pow(16, 1.0/zoomFactor);
       // var translateFactor = -9.48665*Math.pow(zoomFactor, 2.12531);
       // console.log(translateFactor);
       $(this).css({
@@ -116,7 +130,7 @@ function enableSwiping() {
     var id = $(this).closest('a').data("id");
     console.log(id);
 
-    $(this).animate({position: 'relative', left: "-100%"}, animationDuration, function() {
+    $(this).animate({left: "-100%"}, animationDuration, function() {
       $(this).hide();
       scrollAnimation();
     });
@@ -127,7 +141,7 @@ function enableSwiping() {
     var id = $(this).closest('a').data("id");
     console.log(id);
 
-    $(this).animate({position: 'relative', left: "100%"}, animationDuration, function() {
+    $(this).animate({left: "100%"}, animationDuration, function() {
       $(this).hide();
       scrollAnimation();
     });
