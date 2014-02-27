@@ -5,7 +5,7 @@ $(document).ready(function() {
   articleClick();
   $("#refresher").click(refreshArticles);
   enableSwiping();
-  $(window).hammer().on('drag', scrollAnimation);
+  $(".article-list").hammer().on('drag', scrollAnimation);
   scrollAnimation();
 });
 

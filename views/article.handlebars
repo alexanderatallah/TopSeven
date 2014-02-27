@@ -67,7 +67,8 @@
     // $('.article-list').hammer().on("tap", ".swipe", function(e) {
     //   window.location = $(e.target).closest('a')[0].href;
     // });
-    function toggleButtons() {
+    function toggleButtons(e) {
+      if (e) e.preventDefault();
       var $title = $('#articleTitle');
       if ($title.data('swiped')) {
         $title.animate({left: 0}, animationDuration, function() {
