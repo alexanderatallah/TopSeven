@@ -6,7 +6,7 @@ $(document).ready(function() {
   $("#refresher").click(refreshArticles);
   enableSwiping();
   // $(window).on('', scrollAnimation);
-  $("body").on('touchmove', scrollAnimation);
+  $("body").hammer().on('drag', scrollAnimation);
   scrollAnimation();
 });
 
