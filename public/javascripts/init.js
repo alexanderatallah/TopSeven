@@ -39,7 +39,7 @@ function scrollAnimation(_e) {
 
   if (_e) {
     if (_e.gesture.deltaY == 0) return;
-    window.scrollTo(0, edge - _e.gesture.deltaY);
+    window.scrollTo(0, edge - 0.2*_e.gesture.deltaY);
   }
 
   $(".article-list .list-group-item").each(function(i) {
