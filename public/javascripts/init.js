@@ -6,7 +6,7 @@ $(document).ready(function() {
   $("#refresher").click(refreshArticles);
   enableSwiping();
   // $(window).on('', scrollAnimation);
-  $("body").on('touchmove gesturechange', scrollAnimation);
+  $("body").on('touchmove', scrollAnimation);
   scrollAnimation();
 });
 
@@ -35,6 +35,7 @@ function articleClick() {
 
 function scrollAnimation(_e) {
   var edge = $("body").scrollTop();
+  $(".article-list .list-group-item").first().prepend(_e ? _e.timeStamp : 0);
 
   $(".article-list .list-group-item").each(function(i) {
     var thisEdge = $(this).offset().top;
