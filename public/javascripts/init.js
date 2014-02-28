@@ -6,7 +6,8 @@ $(document).ready(function() {
   $("#refresher").click(refreshArticles);
   enableSwiping();
   // $(window).on('', scrollAnimation);
-  $("body").hammer().on('drag', scrollAnimation);
+  $(window).on('touchmove', function(e) {e.preventDefault();})
+    .hammer().on('drag', scrollAnimation);
   scrollAnimation();
 });
 
@@ -34,8 +35,12 @@ function articleClick() {
 }
 
 function scrollAnimation(_e) {
-  var edge = $("body").scrollTop();
-  $(".article-list .list-group-item").first().prepend(_e ? _e.timeStamp : 0);
+  var edge = $(window).scrollTop();
+
+  if (_e) {
+    if (_e.gesture.deltaY == 0) return;
+    window.scrollTo(0, edge - _e.gesture.deltaY);
+  }
 
   $(".article-list .list-group-item").each(function(i) {
     var thisEdge = $(this).offset().top;
