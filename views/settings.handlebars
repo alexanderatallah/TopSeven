@@ -17,25 +17,38 @@
 </head>
 <body>
 
-<img src="{{imageURL}}" class="img-responsive img-circle">
-<h3 id="info">Account Info</h3>
-<h4><a href="#">{{username}}</a></h4>
-<h4><a href="#">{{email}}</a></h4>
-<h4><a href="#">{{password}}</a></h4>
+<h3 id="filters">My Interests:</h3>
+<p>By default, you will receive all types of articles. To choose your preferences, click your favorite categories and press Apply Filters!</p>
 
-<hr>
+<form>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter1" value ="filter2"> <span>Business</span></label></div>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter2" value="filter2"><span>Technology</span></label></div>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter3" value ="filter3"><span>World</span></label></div>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter4" value ="filter4"><span>Fashion</span></label></div>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter5" value ="filter5"><span>Arts</span></label></div>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter6" value ="filter6"><span>Science</span></label></div>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter7" value ="filter7"><span>Health</span></label></div>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter8" value ="filter8"><span>Sports</span></label></div>
+</form>
 
-<h3 id="filters">Add Filters</h3>
-
-<button type="button" class="btn btn-info">Tech</button>
-<button type="button" class="btn btn-success">Politics</button>
-<button type="button" class="btn btn-warning">Economics</button>
-<button type="button" class="btn btn-primary">Fashion</button>
-<button type="button" class="btn btn-danger">Celebrity</button>
-<button type="button" class="btn btn-inverse">Sports</button>
-<hr>
-
-<button type="submit" class="btn btn-default" "submit">Save</button>
+<a href="/" class="btn-start btn btn-large btn-success "  role="button">Apply Filters</a>
+<!--<button type="submit" class="btn btn-success" "submit" id=fubmit>Save</button> -->
 
 </body>
 </html>
