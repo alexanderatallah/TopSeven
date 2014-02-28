@@ -5,7 +5,13 @@ var models = require('../models');
  */
 
 exports.indexPage = function(req, res){
-  res.render('index');
+  var options = {"fancy": true};
+  res.render('index', options);
+};
+
+exports.indexPageSimple = function(req, res){
+  var options = {"fancy": false};
+  res.render('index', options);
 };
 
 /*
