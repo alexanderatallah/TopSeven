@@ -28,36 +28,6 @@ function articleClick() {
   });
 }
 
-function scrollAnimation(_e) {
-  var edge = $(window).scrollTop();
-
-  if (_e) {
-    var delta = _e.gesture.deltaY;
-    if (delta == 0) {
-      return;
-    } else if (delta < 0) {
-      window.scrollTo(0, edge + 20);
-    } else {
-      window.scrollTo(0, edge - 20);
-    }
-  }
-
-  $(".article-list .list-group-item").each(function(i) {
-    var thisEdge = $(this).offset().top;
-    if (thisEdge <= edge) return;
-    var zoomFactor = 14.0/Math.sqrt(thisEdge - edge);
-    if (zoomFactor > 1) zoomFactor = 1;
-    // console.log(zoomFactor);
-    var translateFactor = 16 - Math.pow(16, 1.0/zoomFactor);
-    // var translateFactor = -9.48665*Math.pow(zoomFactor, 2.12531);
-    // console.log(translateFactor);
-    $(this).css({
-      "-webkit-transform": "scale(" + zoomFactor + ") " +
-                           "translateY(" + translateFactor + "px)"
-    });
-  });
-}
-
 function refreshArticles() {
   var spinner = $("#refresher").find(".spinner-inline");
   spinner.addClass("spin");
@@ -104,6 +74,10 @@ function replaceArticles(articles, _excludeSeen) {
       thumbnail +
       '<h4 class="list-group-item-heading">' + article.title + '</h4>' +
       '<p class="list-group-item-text">' + article.abstract + '</p>' + 
+      '<div class="actionButtons" class="clearfix">' +
+        '<div class="deleteButton btn btn-lg btn-danger">Delete</div>' +
+        '<div class="saveButton btn btn-lg btn-primary">Save</div>' +
+      '</div>' +
     '</a>';
   }
 
@@ -129,32 +103,68 @@ function replaceArticles(articles, _excludeSeen) {
 
 function enableSwiping() {
   var animationDuration = 300;
-  $('.article-list').hammer().on("swipeleft", ".swipe", function(e) {
-    var id = $(this).closest('a').data("id");
-    console.log(id);
 
-    $(this).animate({left: "-100%"}, animationDuration, function() {
-      $(this).hide();
-      scrollAnimation();
+  $('.article-list').hammer()
+    .on("dragleft", '.swipe', function(e) {
+      $(this).css({left: e.gesture.deltaX});
+    })
+    .on("dragend", '.swipe', function(e) {
+      e.preventDefault(); e.stopPropagation();
+      if (e.gesture.deltaX < 0) {
+        toggleButtons(this);
+      }
+    })
+    .on("dragright", '.swipe', function(e) {
+      if ($(this).data('swiped')) {
+        $(this).animate({left: 0}, animationDuration, function() {
+          $(this).data('swiped', false);
+        });
+      }
     });
-    var article = Seven.getArticle(id);
 
-    Seven.deleteArticle(article);
-  }).on("swiperight", ".swipe", function(e) {
-    var id = $(this).closest('a').data("id");
-    console.log(id);
 
-    $(this).animate({left: "100%"}, animationDuration, function() {
-      $(this).hide();
-      scrollAnimation();
-    });
-    var article = Seven.getArticle(id);
 
-    Seven.saveArticle(article);
-  });
+  // .on("swipeleft", ".swipe", function(e) {
+  //   var id = $(this).closest('a').data("id");
+  //   console.log(id);
+
+  //   $(this).animate({left: "-100%"}, animationDuration, function() {
+  //     $(this).hide();
+  //     scrollAnimation();
+  //   });
+  //   var article = Seven.getArticle(id);
+
+  //   Seven.deleteArticle(article);
+  // }).on("swiperight", ".swipe", function(e) {
+  //   var id = $(this).closest('a').data("id");
+  //   console.log(id);
+
+  //   $(this).animate({left: "100%"}, animationDuration, function() {
+  //     $(this).hide();
+  //     scrollAnimation();
+  //   });
+  //   var article = Seven.getArticle(id);
+
+  //   Seven.saveArticle(article);
+  // });
 
   // $('.article-list').hammer().on("tap", ".swipe", function(e) {
   //   window.location = $(e.target).closest('a')[0].href;
   // });
+  function toggleButtons(el) {
+    if (e) {e.preventDefault(); e.stopPropagation();}
+
+    var $article = $(el);
+    if ($article.data('swiped')) {
+      $article.animate({left: 0}, animationDuration, function() {
+        $(this).data('swiped', false);
+      });
+    } else {
+      var target = -1*$article.find('.actionButtons').width();
+      $article.animate({left: target}, animationDuration, function() {
+        $(this).data('swiped', true);
+      });
+    }
+  }
 }
 
