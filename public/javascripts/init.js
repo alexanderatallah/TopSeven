@@ -5,7 +5,7 @@ $(document).ready(function() {
   articleClick();
   $("#refresher").click(refreshArticles);
   enableSwiping();
-  $(".article-list").hammer().on('drag', scrollAnimation);
+  $(window).on('scroll touchmove', scrollAnimation);
   scrollAnimation();
 });
 
@@ -32,8 +32,7 @@ function articleClick() {
   });
 }
 
-function scrollAnimation(e) {
-  if (e && e.gesture.deltaY == 0) return;
+function scrollAnimation() {
   var edge = $(window).scrollTop();
 
   $(".article-list .list-group-item").each(function(i) {

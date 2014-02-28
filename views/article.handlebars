@@ -68,7 +68,8 @@
     //   window.location = $(e.target).closest('a')[0].href;
     // });
     function toggleButtons(e) {
-      if (e) e.preventDefault();
+      if (e) {e.preventDefault(); e.stopPropagation();}
+      
       var $title = $('#articleTitle');
       if ($title.data('swiped')) {
         $title.animate({left: 0}, animationDuration, function() {
