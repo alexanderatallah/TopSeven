@@ -30,7 +30,7 @@ function articleClick() {
 
 function scrollAnimation(_e) {
   var edge = $(window).scrollTop();
-  var scrollInterval = 15;
+  var scrollInterval = 20;
 
   if (_e) {
     var delta = _e.gesture.deltaY;

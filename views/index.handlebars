@@ -1,6 +1,11 @@
 <div id="welcomeHelper" class="alert alert-info alert-dismissable">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-  Welcome to <strong>Seven</strong>! Here's the news you've missed in the past 7 days. 
+  Welcome to <strong>Seven</strong>! Here's the news you've missed in the past 7 days. Tap an article to view it.
+</div>
+
+<div id="swipeHelper" class="alert alert-warning alert-dismissable" style="display:none">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  Lasting, you can swipe articles <strong>left to delete</strong> and <strong>right to save</strong>. Seven will learn which articles are best for you. <strong>Go find your Seven.</strong>
 </div>
 
 <div class="col-sm-4 article-list" id="articleList">
@@ -12,7 +17,13 @@
   $(document).ready(function() {
     initArticles();
     articleClick();
+
     checkHelper("welcomeHelper");
+    if(!$("#welcomeHelper").is(":visible") && !JSON.parse(localStorage.helpers).swipeHelper) {
+      $("#swipeHelper").show();
+      checkHelper("swipeHelper");
+    }
+    
     enableSwiping();
     // Disable normal scrolling and add custom scrolling
     $(window).on('touchmove', function(e) {e.preventDefault();})
