@@ -44,14 +44,14 @@ a {
   background-color: white;
 }
 
-#actionButtons {
+.actionButtons {
   z-index: 1;
   position: absolute;
   top: 0;
   right: 0;
 }
 
-  #actionButtons .btn {
+  .actionButtons .btn {
     float: right;
     border-radius: 0;
     height: 45px;

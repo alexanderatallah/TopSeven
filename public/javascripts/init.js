@@ -69,16 +69,17 @@ function replaceArticles(articles, _excludeSeen) {
       var metadata = article.media[0]['media-metadata'];
       thumbnail = '<img src="' + metadata[0].url + '" class="thumbnail" />';
     }
-    return '<a href="/article?id=' + article.id +'" class="list-group-item swipe" data-id="' + article.id + '">' +
-      '<div class="rank">' + (i + 1) + '</div>' + 
-      thumbnail +
-      '<h4 class="list-group-item-heading">' + article.title + '</h4>' +
-      '<p class="list-group-item-text">' + article.abstract + '</p>' + 
+    return '<div style="position:relative"><a href="/article?id=' + article.id +'" class="list-group-item swipe" data-id="' + article.id + '">' +
+        '<div class="rank">' + (i + 1) + '</div>' + 
+        thumbnail +
+        '<h4 class="list-group-item-heading">' + article.title + '</h4>' +
+        '<p class="list-group-item-text">' + article.abstract + '</p>' + 
+      '</a>' + 
       '<div class="actionButtons" class="clearfix">' +
         '<div class="deleteButton btn btn-lg btn-danger">Delete</div>' +
         '<div class="saveButton btn btn-lg btn-primary">Save</div>' +
       '</div>' +
-    '</a>';
+    '</div>';
   }
 
   var articleList = "";
@@ -160,7 +161,8 @@ function enableSwiping() {
         $(this).data('swiped', false);
       });
     } else {
-      var target = -1*$article.find('.actionButtons').width();
+      $buttons = $article.next('.actionButtons').fadeIn();
+      var target = -1*$buttons.width();
       $article.animate({left: target}, animationDuration, function() {
         $(this).data('swiped', true);
       });

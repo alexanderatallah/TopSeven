@@ -1,7 +1,7 @@
 <div class="article">
   <div style="position:relative">
     <h3 id="articleTitle">{{title}}</h3>
-    <div id="actionButtons" class="clearfix">
+    <div class="actionButtons" class="clearfix">
       <div class="deleteButton btn btn-lg btn-danger">Delete</div>
       <div class="saveButton btn btn-lg btn-primary">Save</div>
     </div>
@@ -23,11 +23,11 @@
     $("#articleTitle").text(article.title);
     $("#articleFrame").attr('src', article.url);
 
-    $("#actionButtons .saveButton").click(function(e) {
+    $(".actionButtons .saveButton").click(function(e) {
       Seven.saveArticle(article);
       window.location = "/";
     });
-    $("#actionButtons .deleteButton").click(function(e) {
+    $(".actionButtons .deleteButton").click(function(e) {
       Seven.deleteArticle(article);
       window.location = "/";
     });
@@ -76,7 +76,7 @@
           $(this).data('swiped', false);
         });
       } else {
-        var target = -1*$('#actionButtons').width();
+        var target = -1*$('.actionButtons').width();
         $title.animate({left: target}, animationDuration, function() {
           $(this).data('swiped', true);
         });
