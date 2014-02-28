@@ -1,7 +1,7 @@
 <div class="article">
   <div style="position:relative">
     <h3 id="articleTitle">{{title}}</h3>
-    <div id="actionButtons" class="clearfix">
+    <div class="actionButtons" class="clearfix">
       <div class="deleteButton btn btn-lg btn-danger">Delete</div>
       <div class="saveButton btn btn-lg btn-primary">Save</div>
     </div>
@@ -9,7 +9,7 @@
 
   <div id="articleHelper" class="alert alert-success alert-dismissable">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    <strong>Nice</strong>! Swipe right on the title to mark it as read and go back to the list, or swipe left to save it for later. 
+    Nice! <strong>Swipe left</strong> on the title to save or delete the article or <strong>swipe right</strong> to go back.
   </div>
 
   <iframe id="articleFrame" src="{{url}}" width="100%" height="600px"></iframe>
@@ -23,13 +23,11 @@
     $("#articleTitle").text(article.title);
     $("#articleFrame").attr('src', article.url);
 
-    $("#actionButtons .saveButton").click(function(e) {
-      e.preventDefault();
+    $(".actionButtons .saveButton").click(function(e) {
       Seven.saveArticle(article);
       window.location = "/";
     });
-    $("#actionButtons .deleteButton").click(function(e) {
-      e.preventDefault();
+    $(".actionButtons .deleteButton").click(function(e) {
       Seven.deleteArticle(article);
       window.location = "/";
     });
@@ -39,59 +37,52 @@
 
   function articleViewSwiping() {
     var animationDuration = 200;
-    var dragCutoff = 40;
+    var dragCutoff = 100;
 
     $('#articleTitle').hammer()
       .on("dragleft", function(e) {
         $(this).css({left: e.gesture.deltaX});
       })
       .on("dragend", function(e) {
-        if (e.gesture.deltaX < -1*dragCutoff) {
-          var target = -1*$('#actionButtons').width();
-          $(this).animate({left: target}, animationDuration, function() {
-            $(this).data('swiped', true);
-          });
-        } else if (e.gesture.deltaX > 2*dragCutoff) {
+        if (e.gesture.deltaX < 0) {
+          toggleButtons();
+        } else if (e.gesture.deltaX > dragCutoff) {
           if (!$(this).data('swiped'))
             window.history.back();
-        } else if (e.gesture.deltaX > 0) {
-          $(this).closest('.article').animate({left: 0}, animationDuration);
         } else {
-          $(this).animate({left: 0}, animationDuration);
+          $(this).closest('.article').animate({left: 0}, animationDuration);
         }
       })
-      // .on("dragleft", function(e) {
-
-        // var id = getParam("id");
-
-        // -1*$('#actionButtons').width()
-        // , , function() {
-        //     $(this).data('swiped', true);
-        // });
-
-
-        // var article = Seven.getArticle(id);
-
-        // Seven.saveArticle(article);
-
-      // })
+      .on("tap", toggleButtons)
       .on("dragright", function(e) {
         if ($(this).data('swiped')) {
-          return $(this).animate({left: 0}, animationDuration, function() {
+          $(this).animate({left: 0}, animationDuration, function() {
             $(this).data('swiped', false);
           });
         } else {
           $(this).closest('.article').css({left: e.gesture.deltaX}); 
         }
-        // .animate({left: "100%"}, animationDuration, function() {
-        //   window.history.back();
-        // });
-
-        // Seven.saveArticle(article);
       });
 
     // $('.article-list').hammer().on("tap", ".swipe", function(e) {
     //   window.location = $(e.target).closest('a')[0].href;
     // });
+    function toggleButtons(e) {
+      if (e) {e.preventDefault(); e.stopPropagation();}
+
+      var $title = $('#articleTitle');
+      if ($title.data('swiped')) {
+        $title.animate({left: 0}, animationDuration, function() {
+          $(this).data('swiped', false);
+        });
+      } else {
+        var target = -1*$('.actionButtons').width();
+        $title.animate({left: target}, animationDuration, function() {
+          $(this).data('swiped', true);
+        });
+      }
+    }
   }
+
+
 </script>

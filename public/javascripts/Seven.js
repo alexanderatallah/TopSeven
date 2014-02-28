@@ -100,7 +100,10 @@ window.Seven = {
   },
 
 // adds categories
-$(':checkbox').click(function(){
+
+
+//keeps checks checked in local storage
+/*$(':checkbox').click(function()){
   var name = $(this).attr('name');
   var value = $(this).val();
   $(document).ready(function (){
@@ -108,14 +111,7 @@ $(':checkbox').click(function(){
       $(this).prop('checked',localStorage.getItem(this.name) == 'checked');
     });
     });
-  }
-
-$("#filters :checkbox").click(function() {
-       $("div").hide();
-       $("#filters :checkbox:checked").each(function() {
-           $("." + $(this).val()).show();
-       });
-    });
+  }*/
 
 
   //////////////////////////////////////////////
@@ -149,9 +145,9 @@ $("#filters :checkbox").click(function() {
     $.get(this.mostViewedURL_(), fetchArticlesCb, 'jsonp');
   },
 
-  var filteredArray = filter(articles, {
+  filter: function(articles) {
 
-  }
+  },
 
 
   /**

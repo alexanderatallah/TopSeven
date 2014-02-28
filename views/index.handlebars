@@ -11,6 +11,45 @@
 <script type="text/javascript">
   $(document).ready(function() {
     initArticles();
+    articleClick();
     checkHelper("welcomeHelper");
+    enableSwiping();
+    // Disable normal scrolling and add custom scrolling
+    $(window).on('touchmove', function(e) {e.preventDefault();})
+      .hammer()
+        .on('drag', scrollAnimation);
+        // .on('dragend', function(e) {e.preventDefault();});
+    scrollAnimation();
   });
+
+  function scrollAnimation(_e) {
+    var edge = $(window).scrollTop();
+    var scrollInterval = 15;
+
+    if (_e) {
+      var delta = _e.gesture.deltaY;
+      if (delta == 0) {
+        return;
+      } else if (delta < 0) {
+        window.scrollTo(0, edge + scrollInterval);
+      } else {
+        window.scrollTo(0, edge - scrollInterval);
+      }
+    }
+
+    $(".article-list .list-group-item").each(function(i) {
+      var thisEdge = $(this).offset().top;
+      if (thisEdge <= edge) return;
+      var zoomFactor = 14.0/Math.sqrt(thisEdge - edge);
+      if (zoomFactor > 1) zoomFactor = 1;
+      // console.log(zoomFactor);
+      var translateFactor = 16 - Math.pow(16, 1.0/zoomFactor);
+      // var translateFactor = -9.48665*Math.pow(zoomFactor, 2.12531);
+      // console.log(translateFactor);
+      $(this).css({
+        "-webkit-transform": "scale(" + zoomFactor + ") " +
+                             "translateY(" + translateFactor + "px)"
+      });
+    });
+  }
 </script>
