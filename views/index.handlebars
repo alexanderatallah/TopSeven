@@ -11,6 +11,12 @@
 <script type="text/javascript">
   $(document).ready(function() {
     initArticles();
+    articleClick();
     checkHelper("welcomeHelper");
+    enableSwiping();
+    // $(window).on('', scrollAnimation);
+    $(window).on('touchmove', function(e) {e.preventDefault();})
+      .hammer().on('drag', scrollAnimation);
+    scrollAnimation();
   });
 </script>

@@ -2,13 +2,7 @@
 
 // Call this function when the page loads (the "ready" event)
 $(document).ready(function() {
-  articleClick();
   $("#refresher").click(refreshArticles);
-  enableSwiping();
-  // $(window).on('', scrollAnimation);
-  $(window).on('touchmove', function(e) {e.preventDefault();})
-    .hammer().on('drag', scrollAnimation);
-  scrollAnimation();
 });
 
 /**
@@ -38,8 +32,14 @@ function scrollAnimation(_e) {
   var edge = $(window).scrollTop();
 
   if (_e) {
-    if (_e.gesture.deltaY == 0) return;
-    window.scrollTo(0, edge - 0.2*_e.gesture.deltaY);
+    var delta = _e.gesture.deltaY;
+    if (delta == 0) {
+      return;
+    } else if (delta < 0) {
+      window.scrollTo(0, edge + 20);
+    } else {
+      window.scrollTo(0, edge - 20);
+    }
   }
 
   $(".article-list .list-group-item").each(function(i) {
