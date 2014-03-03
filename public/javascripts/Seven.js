@@ -99,9 +99,6 @@ window.Seven = {
     return JSON.parse(localStorage['seen']);
   },
 
-// adds categories
-
-
 //keeps checks checked in local storage
 /*$(':checkbox').click(function()){
   var name = $(this).attr('name');
@@ -145,10 +142,13 @@ window.Seven = {
     $.get(this.mostViewedURL_(), fetchArticlesCb, 'jsonp');
   },
 
-  filter: function(articles) {
+/**
+* filters articles by category checked
+*/
+
+filter: function(articles) {
 
   },
-
 
   /**
    * Parses NYT articles, adding rank, etc.

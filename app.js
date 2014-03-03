@@ -48,6 +48,7 @@ if ('development' == app.get('env')) {
 
 // Routes
 app.get('/', articles.indexPage);
+app.get('/simple', articles.indexPageSimple);
 app.get('/article', articles.articlePage);
 app.get('/articles/metadata', articles.metadata);
 app.get('/saved', saved.savedPages);
