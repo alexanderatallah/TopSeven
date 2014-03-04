@@ -5,12 +5,18 @@ var models = require('../models');
  */
 
 exports.indexPage = function(req, res){
-  var options = {"fancy": true};
+  var options = {
+    "fancy": true,
+    "experiment": true
+  };
   res.render('index', options);
 };
 
 exports.indexPageSimple = function(req, res){
-  var options = {"fancy": false};
+  var options = {
+    "fancy": false,
+    "experiment": true
+  };
   res.render('index', options);
 };
 

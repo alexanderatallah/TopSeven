@@ -25,11 +25,11 @@
 
     $(".actionButtons .saveButton").click(function(e) {
       Seven.saveArticle(article);
-      window.history.back();
+      window.location = "/";
     });
     $(".actionButtons .deleteButton").click(function(e) {
       Seven.deleteArticle(article);
-      window.history.back();
+      window.location = "/";
     });
 
     articleViewSwiping();
