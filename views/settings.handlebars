@@ -20,35 +20,39 @@
 <h3 id="filters">My Interests:</h3>
 <p>By default, you will receive all types of articles. To choose your preferences, click your favorite categories and press Apply Filters!</p>
 
-<form>
+<form name ="filters" action="/filter/" id="filterform" method="post">
 <div id="ck-button">
   <label>
-<input type="checkbox" name="filter1" value ="filter2"> <span>Business</span></label></div>
+<input type="checkbox" name="filter" value ="Business"> <span>Business</span></label></div>
 <div id="ck-button">
   <label>
-<input type="checkbox" name="filter2" value="filter2"><span>Technology</span></label></div>
+<input type="checkbox" name="filter" value="Technology"><span>Technology</span></label></div>
 <div id="ck-button">
   <label>
-<input type="checkbox" name="filter3" value ="filter3"><span>World</span></label></div>
+<input type="checkbox" name="filter" value ="World"><span>World</span></label></div>
 <div id="ck-button">
   <label>
-<input type="checkbox" name="filter4" value ="filter4"><span>Fashion</span></label></div>
+<input type="checkbox" name="filter" value ="Fashion"><span>Fashion</span></label></div>
 <div id="ck-button">
   <label>
-<input type="checkbox" name="filter5" value ="filter5"><span>Arts</span></label></div>
+<input type="checkbox" name="filter" value ="Arts"><span>Arts</span></label></div>
 <div id="ck-button">
   <label>
-<input type="checkbox" name="filter6" value ="filter6"><span>Science</span></label></div>
+<input type="checkbox" name="filter" value ="Science"><span>Science</span></label></div>
 <div id="ck-button">
   <label>
-<input type="checkbox" name="filter7" value ="filter7"><span>Health</span></label></div>
+<input type="checkbox" name="filter" value ="Health"><span>Health</span></label></div>
 <div id="ck-button">
   <label>
-<input type="checkbox" name="filter8" value ="filter8"><span>Sports</span></label></div>
+<input type="checkbox" name="filter" value ="Sports"><span>Sports</span></label></div>
 </form>
 
-<a href="/" class="btn-start btn btn-large btn-success "  role="button">Apply Filters</a>
-<!--<button type="submit" class="btn btn-success" "submit" id=fubmit>Save</button> -->
+<a class="btn-start btn btn-large btn-success "  id="submitfilters" role="button">Apply Filters</a>
 
+<script>
+$("#submitfilters").click(function(){
+  $("#filterform").submit();
+});
+</script>
 </body>
 </html>

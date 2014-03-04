@@ -142,13 +142,7 @@ window.Seven = {
     $.get(this.mostViewedURL_(), fetchArticlesCb, 'jsonp');
   },
 
-/**
-* filters articles by category checked
-*/
 
-filter: function(articles) {
-
-  },
 
   /**
    * Parses NYT articles, adding rank, etc.
