@@ -2,7 +2,6 @@
 
 window.Seven = {
   SEVEN: 7,
-  VIEW_COUNT_WEIGHT: 2,
 
   /**
    * Saves articles
@@ -27,7 +26,7 @@ window.Seven = {
    * @public
    */
   loadArticles: function() {
-    return this.sort(this.load_('articles'));
+    return this.load_('articles');
   },
 
   loadSavedArticles: function() {
@@ -100,13 +99,16 @@ window.Seven = {
     return JSON.parse(localStorage['seen']);
   },
 
-
-
-
-
-
-
-
+//keeps checks checked in local storage
+/*$(':checkbox').click(function()){
+  var name = $(this).attr('name');
+  var value = $(this).val();
+  $(document).ready(function (){
+    $(':checkbox').each(function(){
+      $(this).prop('checked',localStorage.getItem(this.name) == 'checked');
+    });
+    });
+  }*/
 
 
   //////////////////////////////////////////////
@@ -140,6 +142,8 @@ window.Seven = {
     $.get(this.mostViewedURL_(), fetchArticlesCb, 'jsonp');
   },
 
+
+
   /**
    * Parses NYT articles, adding rank, etc.
    *
@@ -149,40 +153,21 @@ window.Seven = {
     console.log(data);
     var articles = data.results;
 
-    var metadata_url = "/articles/metadata";
-    var articleIds = {"articleIds": _.pluck(articles, "id")};
-    $.get(metadata_url, articleIds, withArticleMetadata);
-
-    function withArticleMetadata(metadata) {
-      _.each(articles, function(a, i) {
-        var metadatum = _.findWhere(metadata, {"article_id": a.id});
-        a.rank = Seven.rankArticle(a, metadatum, i);
-      });
-
-      Seven.saveArticles(articles);
-      callback(Seven.sort(articles));
+    for(var i = 0; i < articles.length; i++) {
+      var article = articles[i];
+      article.rank = this.rankArticle(article, i);
     }
+
+    this.saveArticles(articles);
+    callback(articles);
   },
 
   /**
    * Ranks an article
    * @optional _i index of article in list
-   * @optional _metadata article info from server
    * @public
    */
-  rankArticle: function(article, _metadatum, _i) {
-    if (_metadatum && _metadatum.view_count) {
-      return article.views - this.VIEW_COUNT_WEIGHT*Math.log(_metadatum.view_count);
-    } else {
-      return article.views;
-    }
-  },
-
-  /**
-   * Sorts articles by rank
-   * @public
-   */
-  sort: function(articles) {
-    return _.sortBy(articles, "rank");
+  rankArticle: function(article, _i) {
+    return article.views || ((_i || 0) + 1);
   }
 }

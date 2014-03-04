@@ -17,25 +17,42 @@
 </head>
 <body>
 
-<img src="{{imageURL}}" class="img-responsive img-circle">
-<h3 id="info">Account Info</h3>
-<h4><a href="#">{{username}}</a></h4>
-<h4><a href="#">{{email}}</a></h4>
-<h4><a href="#">{{password}}</a></h4>
+<h3 id="filters">My Interests:</h3>
+<p>By default, you will receive all types of articles. To choose your preferences, click your favorite categories and press Apply Filters!</p>
 
-<hr>
+<form name ="filters" action="/filter/" id="filterform" method="post">
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter" value ="Business"> <span>Business</span></label></div>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter" value="Technology"><span>Technology</span></label></div>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter" value ="World"><span>World</span></label></div>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter" value ="Fashion"><span>Fashion</span></label></div>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter" value ="Arts"><span>Arts</span></label></div>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter" value ="Science"><span>Science</span></label></div>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter" value ="Health"><span>Health</span></label></div>
+<div id="ck-button">
+  <label>
+<input type="checkbox" name="filter" value ="Sports"><span>Sports</span></label></div>
+</form>
 
-<h3 id="filters">Add Filters</h3>
+<a class="btn-start btn btn-large btn-success "  id="submitfilters" role="button">Apply Filters</a>
 
-<button type="button" class="btn btn-info">Tech</button>
-<button type="button" class="btn btn-success">Politics</button>
-<button type="button" class="btn btn-warning">Economics</button>
-<button type="button" class="btn btn-primary">Fashion</button>
-<button type="button" class="btn btn-danger">Celebrity</button>
-<button type="button" class="btn btn-inverse">Sports</button>
-<hr>
-
-<button type="submit" class="btn btn-default" "submit">Save</button>
-
+<script>
+$("#submitfilters").click(function(){
+  $("#filterform").submit();
+});
+</script>
 </body>
 </html>
