@@ -73,7 +73,7 @@ function replaceArticles(articles, _excludeSeen) {
       var metadata = article.media[0]['media-metadata'];
       thumbnail = '<img src="' + metadata[0].url + '" class="thumbnail" />';
     }
-    return '<a href="article?id=' + article.id +'" class="list-group-item swipe" data-id="' + article.id + '">' +
+    return '<a href="/article?id=' + article.id +'" class="list-group-item swipe" data-id="' + article.id + '">' +
       '<div class="rank">' + (i + 1) + '</div>' + 
       thumbnail +
       '<h4 class="list-group-item-heading">' + article.title + '</h4>' +

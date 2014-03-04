@@ -47,7 +47,10 @@ if ('development' == app.get('env')) {
 }
 
 // Routes
-app.get('/', articles.indexPage);
+app.get('/', function(req, res) {
+  res.redirect('/index');
+});
+app.get('/index', articles.indexPage);
 app.get('/simple', articles.indexPageSimple);
 app.get('/article', articles.articlePage);
 app.get('/articles/metadata', articles.metadata);
