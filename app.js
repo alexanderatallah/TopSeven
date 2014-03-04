@@ -55,7 +55,7 @@ app.get('/saved', saved.savedPages);
 app.get('/trash', trash.deletedPages);
 app.get('/help', help.helpPage);
 app.get('/settings',settings.settingsPage);
-app.get('/filter', settings.filter);
+app.post('/filter', settings.filter);
 
 // Partials
 handlebars.create().loadPartials(function (err, partials) {
