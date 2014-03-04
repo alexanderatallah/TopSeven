@@ -27,6 +27,7 @@ window.Seven = {
    * @public
    */
   loadArticles: function() {
+    ga("send", "event", "index", "click");
     return this.sort(this.load_('articles'));
   },
 

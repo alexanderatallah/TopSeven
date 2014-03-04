@@ -29,6 +29,10 @@ function articleClick() {
 }
 
 function refreshArticles() {
+  // GOOGLE ANALYTICS
+  ga("send", "event", "index", "reload");
+  // END GOOGLE ANALYTICS
+
   var spinner = $("#refresher").find(".spinner-inline");
   spinner.addClass("spin");
   Seven.fetchArticles(function(results) {

@@ -15,6 +15,10 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+    // GOOGLE ANALYTICS
+    ga("send", "event", "index", "view");
+    // END GOOGLE ANALYTICS
+
     initArticles();
     articleClick();
 
@@ -33,6 +37,12 @@
           // .on('dragend', function(e) {e.preventDefault();});
       scrollAnimation();
     {{/if}}
+
+    $(window).on('scroll', function(e) {
+      // GOOGLE ANALYTICS
+      ga("send", "event", "index", "scroll");
+      // END GOOGLE ANALYTICS
+    });
   });
 
   function scrollAnimation(_e) {
