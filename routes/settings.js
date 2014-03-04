@@ -14,7 +14,3 @@ exports.filter = function(req,res) {
 	console.log(res);
 	res.render('settings', { title: 'Settings' });
 }
-
-filter: function(articles) {
-
-},
