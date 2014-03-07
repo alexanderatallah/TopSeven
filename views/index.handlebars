@@ -15,14 +15,13 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+    checkHelper("welcomeHelper");
     // GOOGLE ANALYTICS
     // ga("send", "event", "index", "view");
     // END GOOGLE ANALYTICS
 
     initArticles();
     articleClick();
-
-    checkHelper("welcomeHelper");
     if(!$("#welcomeHelper").is(":visible") && !JSON.parse(localStorage.helpers).swipeHelper) {
       $("#swipeHelper").show();
       checkHelper("swipeHelper");
@@ -41,6 +40,12 @@
       // END GOOGLE ANALYTICS
     // });
   });
+
+  function initArticles() {
+    var articles = Seven.loadArticles();
+    if (!articles || articles.length == 0) refreshArticles();
+    else replaceArticles(articles);
+  }
 
   function scrollAnimation(_e) {
     {{#if fancy}}
@@ -85,4 +90,55 @@
       });
     {{/if}}
   }
+
+  function enableSwiping() {
+    var animationDuration = 300;
+    $('.article-list').hammer().on("swipeleft", ".swipe", function(e) {
+      var id = $(this).closest('a').data("id");
+      console.log(id);
+
+      var $ghostDiv = $("<div class='ghostDiv ghostDivDelete' />").html("<div>Deleted</div>");
+      $ghostDiv.css({
+        top: $(this).offset().top,
+        height: $(this).height(),
+      });
+      $ghostDiv.appendTo("body");
+
+      $(this).animate({left: "-100%"}, animationDuration, function() {
+        var el = this;
+        $ghostDiv.fadeOut(1000, function() {
+          $(el).remove();
+          $(this).remove();
+          scrollAnimation();
+        });
+      });
+      var article = Seven.getArticle(id);
+
+      Seven.deleteArticle(article);
+    });
+    // .on("swiperight", ".swipe", function(e) {
+    //   var id = $(this).closest('a').data("id");
+    //   console.log(id);
+
+    //   var $ghostDiv = $("<div class='ghostDiv ghostDivSave' />").html("<div>Saved</div>");
+    //   $ghostDiv.css({
+    //     top: $(this).offset().top,
+    //     height: $(this).height(),
+    //   });
+    //   $ghostDiv.appendTo("body");
+
+    //   $(this).animate({left: "100%"}, animationDuration, function() {
+    //     var el = this;
+    //     $ghostDiv.fadeOut(1000, function() {
+    //       $(el).remove();
+    //       $(this).remove();
+    //       scrollAnimation();
+    //     });
+    //   });
+    //   var article = Seven.getArticle(id);
+
+    //   Seven.saveArticle(article);
+    // });
+  }
+
 </script>

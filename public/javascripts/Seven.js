@@ -74,6 +74,14 @@ window.Seven = {
     this.markAsSeen_(article);
   },
 
+  unDeleteArticle: function(article) {
+    var deleted = this.loadDeletedArticles();
+    deleted = _.without(deleted, article);
+    this.saveDeletedArticles(deleted);
+
+    this.markAsUnSeen_(article);
+  },
+
   saveArticle: function(article) {
     var saved = this.loadSavedArticles();
     saved.unshift(article);
@@ -91,6 +99,13 @@ window.Seven = {
   markAsSeen_: function(article) {
     var seen = this.loadSeenArticles_();
     seen[article.id] = true;
+    localStorage['seen'] = JSON.stringify(seen);
+  },
+
+  // @private
+  markAsUnSeen_: function(article) {
+    var seen = this.loadSeenArticles_();
+    delete seen[article.id];
     localStorage['seen'] = JSON.stringify(seen);
   },
 

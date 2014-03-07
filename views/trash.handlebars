@@ -1,3 +1,8 @@
+<div id="trashHelper" class="helper alert alert-warning alert-dismissable">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <strong>Swipe left</strong> on an article to undelete it.
+</div>
+
 <div class="col-sm-4 article-list" id="deletedList">
   <div class="list-group">
     You do not have any deleted articles.
@@ -6,6 +11,68 @@
 
 <script type="text/javascript">
   $(document).ready(function() {
+    checkHelper("trashHelper");
     initDeletedArticles();
+
+    $(".article-list .list-group-item").click(function(e) {
+      e.preventDefault();
+    });
+
+    enableSwiping();
   });
+
+  function initDeletedArticles() {
+    var deleted = Seven.loadDeletedArticles();
+    if (!deleted || deleted.length == 0) return;
+    else replaceArticles(deleted, false);
+  }
+
+  function enableSwiping() {
+    var animationDuration = 300;
+    $('.article-list').hammer().on("swipeleft", ".swipe", function(e) {
+      var id = $(this).closest('a').data("id");
+      console.log(id);
+
+      var $ghostDiv = $("<div class='ghostDiv ghostDivSave' />").html("<div>Moved to Seven</div>");
+      $ghostDiv.css({
+        top: $(this).offset().top,
+        height: $(this).height(),
+      });
+      $ghostDiv.appendTo("body");
+
+      $(this).animate({left: "-100%"}, animationDuration, function() {
+        var el = this;
+        $ghostDiv.fadeOut(1000, function() {
+          $(el).remove();
+          $(this).remove();
+        });
+      });
+      var article = Seven.getArticle(id);
+
+      Seven.unDeleteArticle(article);
+    });
+    // .on("swiperight", ".swipe", function(e) {
+    //   var id = $(this).closest('a').data("id");
+    //   console.log(id);
+
+    //   var $ghostDiv = $("<div class='ghostDiv ghostDivSave' />").html("<div>Saved</div>");
+    //   $ghostDiv.css({
+    //     top: $(this).offset().top,
+    //     height: $(this).height(),
+    //   });
+    //   $ghostDiv.appendTo("body");
+
+    //   $(this).animate({left: "100%"}, animationDuration, function() {
+    //     var el = this;
+    //     $ghostDiv.fadeOut(1000, function() {
+    //       $(el).remove();
+    //       $(this).remove();
+    //       scrollAnimation();
+    //     });
+    //   });
+    //   var article = Seven.getArticle(id);
+
+    //   Seven.saveArticle(article);
+    // });
+  }
 </script>

@@ -37,7 +37,7 @@ function refreshArticles() {
   spinner.addClass("spin");
   Seven.fetchArticles(function(results) {
     spinner.removeClass("spin");
-    replaceArticles(results);
+    replaceArticles(results, true, false);
   });
 }
 
@@ -46,26 +46,10 @@ function refreshArticles() {
  * THE HTML IN THE HANDLEBARS FILES, FOR RESPECTIVE PAGES
  *
  */
-function initArticles() {
-  var articles = Seven.loadArticles();
-  if (!articles || articles.length == 0) refreshArticles();
-  else replaceArticles(articles);
-}
 
-function initSavedArticles() {
-  var saved = Seven.loadSavedArticles();
-  if (!saved || saved.length == 0) return;
-  else replaceArticles(saved, false);
-}
-
-function initDeletedArticles() {
-  var deleted = Seven.loadDeletedArticles();
-  if (!deleted || deleted.length == 0) return;
-  else replaceArticles(deleted, false);
-}
-
-function replaceArticles(articles, _excludeSeen) {
+function replaceArticles(articles, _excludeSeen, _resetList) {
   if (_excludeSeen === undefined) _excludeSeen = true;
+  if (_resetList === undefined) _resetList = false;
 
   var template = function(article, i) {
     var thumbnail = "";
@@ -82,76 +66,38 @@ function replaceArticles(articles, _excludeSeen) {
   }
 
   var articleList = "";
-  var limit = _excludeSeen ? Seven.SEVEN : articles.length;
-  var i = 0;
-  while (i < limit) {
+  // var limit = _excludeSeen ? Seven.SEVEN : articles.length;
+  // var i = 0;
+  // while (i < limit) {
+  //   var article = articles[i];
+  //   if (_excludeSeen && Seven.isSeen(article)) {
+  //     // This will load new articles
+  //     if (limit < articles.length) limit++;
+  //   } else {
+  //     articleList += template(article, i); 
+  //   }
+  //   i++;
+  // }
+
+  var listSize = 0;
+  for(var i = 0; i < articles.length; i++) {
     var article = articles[i];
     if (_excludeSeen && Seven.isSeen(article)) {
-      // This will load new articles
-      if (limit < articles.length) limit++;
+      //
     } else {
-      articleList += template(article, i); 
+      articleList += template(article, listSize);
+      listSize++;
     }
-    i++;
+    if (listSize >= 7) break;
   }
 
+  if (articleList.length)
+    $(".article-list").find('.list-group')
+      .html(articleList);
+  else {
+    alert("You're up to date! Here come your deleted articles. Check back next week for new ones.");
+    window.location = "/trash";
+  }
 
-  $(".article-list").find('.list-group')
-    .html(articleList);
-
-  scrollAnimation();
+  if (window.scrollAnimation!== undefined) scrollAnimation();
 }
-
-function enableSwiping() {
-  var animationDuration = 300;
-  $('.article-list').hammer().on("swipeleft", ".swipe", function(e) {
-    var id = $(this).closest('a').data("id");
-    console.log(id);
-
-    var $ghostDiv = $("<div class='ghostDiv ghostDivDelete' />").html("<div>Deleted</div>");
-    $ghostDiv.css({
-      top: $(this).offset().top,
-      height: $(this).height(),
-    });
-    $ghostDiv.appendTo("body");
-
-    $(this).animate({left: "-100%"}, animationDuration, function() {
-      var el = this;
-      $ghostDiv.fadeOut(1000, function() {
-        $(el).remove();
-        $(this).remove();
-      });
-      scrollAnimation();
-    });
-    var article = Seven.getArticle(id);
-
-    Seven.deleteArticle(article);
-  }).on("swiperight", ".swipe", function(e) {
-    var id = $(this).closest('a').data("id");
-    console.log(id);
-
-    var $ghostDiv = $("<div class='ghostDiv ghostDivSave' />").html("<div>Saved</div>");
-    $ghostDiv.css({
-      top: $(this).offset().top,
-      height: $(this).height(),
-    });
-    $ghostDiv.appendTo("body");
-
-    $(this).animate({left: "100%"}, animationDuration, function() {
-      var el = this;
-      $ghostDiv.fadeOut(1000, function() {
-        $(el).remove();
-        $(this).remove();
-      });
-      scrollAnimation();
-    });
-    var article = Seven.getArticle(id);
-
-    Seven.saveArticle(article);
-  });
-
-  // $('.article-list').hammer().on("tap", ".swipe", function(e) {
-  //   window.location = $(e.target).closest('a')[0].href;
-  // });
-}
-

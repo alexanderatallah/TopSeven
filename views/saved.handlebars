@@ -8,4 +8,10 @@
   $(document).ready(function() {
     initSavedArticles();
   });
+
+  function initSavedArticles() {
+    var saved = Seven.loadSavedArticles();
+    if (!saved || saved.length == 0) return;
+    else replaceArticles(saved, false);
+  }
 </script>
