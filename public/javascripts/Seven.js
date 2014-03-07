@@ -27,7 +27,6 @@ window.Seven = {
    * @public
    */
   loadArticles: function() {
-    ga("send", "event", "index", "click");
     return this.sort(this.load_('articles'));
   },
 
@@ -111,20 +110,23 @@ window.Seven = {
 
 
   //////////////////////////////////////////////
-  ////////////// New York Times ////////////////
+  ////////////// FEED PARSING //////////////////
   //////////////////////////////////////////////
 
-  API_KEY_: "524a862fb70db9b6a0202562125bd2eb:3:56094140",
+  NYT_API_KEY_: "524a862fb70db9b6a0202562125bd2eb:3:56094140",
+  GOOGLE_NEWS_FEED_: "http://news.google.com/news?pz=1&cf=all&ned=us&hl=en&output=rss",
 
   /**
    * NYT URL that will give us lots and lots of whatever we're looking for.
    * 
    * @private
    */
-  mostViewedURL_: function() {
+  feedUrl_: function() {
     return "//api.nytimes.com/svc/mostpopular/v2/" + 
     "mostviewed/all-sections/7.jsonp?api-key=" + 
-    this.API_KEY_;
+    this.NYT_API_KEY_;
+    // return "https://ajax.googleapis.com/ajax/services/feed/" +
+    //   "load?v=1.0&q=" + encodeURIComponent(this.GOOGLE_NEWS_FEED_);
   },
 
 
@@ -134,15 +136,15 @@ window.Seven = {
    * @public
    */
   fetchArticles: function(callback) {
-    var nyt = this;
+    var self = this;
     var fetchArticlesCb = function(res) {
-      nyt.parseArticles_(res, callback);
+      self.parseArticles_(res, callback);
     }
-    $.get(this.mostViewedURL_(), fetchArticlesCb, 'jsonp');
+    $.get(this.feedUrl_(), fetchArticlesCb, 'jsonp');
   },
 
   /**
-   * Parses NYT articles, adding rank, etc.
+   * Parses articles, adding rank, etc.
    *
    * @private
    */

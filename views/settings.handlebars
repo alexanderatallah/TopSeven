@@ -1,58 +1,40 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Help</title>
-  <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap.css">
-  <!-- <link rel="stylesheet" type="text/css" href="stylesheets/bootstrap-theme.css"> -->
-  <link rel="stylesheet" type="text/css" href="stylesheets/main.css">
-  <link rel="stylesheet" type="text/css" href="stylesheets/settings.css">
-  <link rel="stylesheet" type="text/css" href="stylesheets/indicators.css">
+<div id="settingsList"> 
+  <h3 id="filters">My Interests:</h3>
+  <p>By default, you will receive all types of articles. To choose your preferences, click your favorite categories and press Apply Filters!</p>
 
-  <!-- PUT SCRIPTS BEFORE </body> TAG! 
-  except for jQuery and bootstrap -->
-  <script type="text/javascript" src="javascripts/jquery-min.js"></script>
-  <script type="text/javascript" src="javascripts/bootstrap.js"></script>
-</head>
-<body>
+  <form name ="filters" action="/filter/" id="filterform" method="post">
+  <div id="ck-button">
+    <label>
+  <input type="checkbox" name="filter" value ="Business"> <span>Business</span></label></div>
+  <div id="ck-button">
+    <label>
+  <input type="checkbox" name="filter" value="Technology"><span>Technology</span></label></div>
+  <div id="ck-button">
+    <label>
+  <input type="checkbox" name="filter" value ="World"><span>World</span></label></div>
+  <div id="ck-button">
+    <label>
+  <input type="checkbox" name="filter" value ="Fashion"><span>Fashion</span></label></div>
+  <div id="ck-button">
+    <label>
+  <input type="checkbox" name="filter" value ="Arts"><span>Arts</span></label></div>
+  <div id="ck-button">
+    <label>
+  <input type="checkbox" name="filter" value ="Science"><span>Science</span></label></div>
+  <div id="ck-button">
+    <label>
+  <input type="checkbox" name="filter" value ="Health"><span>Health</span></label></div>
+  <div id="ck-button">
+    <label>
+  <input type="checkbox" name="filter" value ="Sports"><span>Sports</span></label></div>
+  </form>
 
-<h3 id="filters">My Interests:</h3>
-<p>By default, you will receive all types of articles. To choose your preferences, click your favorite categories and press Apply Filters!</p>
+  <a class="btn-start btn btn-large btn-success "  id="submitfilters" role="button">Apply Filters</a>
 
-<form name ="filters" action="/filter/" id="filterform" method="post">
-<div id="ck-button">
-  <label>
-<input type="checkbox" name="filter" value ="Business"> <span>Business</span></label></div>
-<div id="ck-button">
-  <label>
-<input type="checkbox" name="filter" value="Technology"><span>Technology</span></label></div>
-<div id="ck-button">
-  <label>
-<input type="checkbox" name="filter" value ="World"><span>World</span></label></div>
-<div id="ck-button">
-  <label>
-<input type="checkbox" name="filter" value ="Fashion"><span>Fashion</span></label></div>
-<div id="ck-button">
-  <label>
-<input type="checkbox" name="filter" value ="Arts"><span>Arts</span></label></div>
-<div id="ck-button">
-  <label>
-<input type="checkbox" name="filter" value ="Science"><span>Science</span></label></div>
-<div id="ck-button">
-  <label>
-<input type="checkbox" name="filter" value ="Health"><span>Health</span></label></div>
-<div id="ck-button">
-  <label>
-<input type="checkbox" name="filter" value ="Sports"><span>Sports</span></label></div>
-</form>
-
-<a class="btn-start btn btn-large btn-success "  id="submitfilters" role="button">Apply Filters</a>
+</div>
 
 <script>
 $("#submitfilters").click(function(){
   $("#filterform").submit();
 });
 </script>
-</body>
-</html>

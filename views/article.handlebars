@@ -1,15 +1,23 @@
 <div class="article">
   <div style="position:relative">
-    <h3 id="articleTitle">{{title}}</h3>
+    <!-- <div id="articleBanner">
+      <button class="btn go-back" style="display:inline-block">
+        <span class="glyphicon glyphicon-chevron-left" style="display:inline-block"></span>
+      </button>
+    </div> -->
     <div class="actionButtons" class="clearfix">
-      <div class="deleteButton btn btn-lg btn-danger">Delete</div>
-      <div class="saveButton btn btn-lg btn-primary">Save</div>
+      <div class="backButton btn btn-lg btn-default">
+        <span class="glyphicon glyphicon-chevron-left" style="display:inline-block"></span>
+      </div>
+      <div class="deleteButton btn btn-lg btn-danger">
+        <span class="glyphicon glyphicon-trash" style="display:inline-block"></span>
+      </div>
     </div>
   </div>
 
-  <div id="articleHelper" class="alert alert-success alert-dismissable">
+  <div id="articleHelper" class="helper alert alert-success alert-dismissable">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-    Nice! <strong>Swipe left</strong> on the title to save or delete the article or <strong>swipe right</strong> to go back.
+    Nice! <strong>Swipe right</strong> on the buttons above to go back.
   </div>
 
   <iframe id="articleFrame" src="{{url}}" width="100%" height="600px"></iframe>
@@ -20,12 +28,14 @@
   $(document).ready(function() {
     checkHelper("articleHelper");
     var article = Seven.getArticle(getParam("id"));
-    $("#articleTitle").text(article.title);
+    // $("#articleBanner").text(article.title);
     $("#articleFrame").attr('src', article.url);
 
-    $(".actionButtons .saveButton").click(function(e) {
-      Seven.saveArticle(article);
-      window.location = "/";
+    $(".actionButtons .backButton").click(function(e) {
+      window.history.back();
+    });
+    $(".actionButtons .openButton").click(function(e) {
+      window.open(article.url, '_blank');
     });
     $(".actionButtons .deleteButton").click(function(e) {
       Seven.deleteArticle(article);
@@ -39,29 +49,29 @@
     var animationDuration = 200;
     var dragCutoff = 100;
 
-    $('#articleTitle').hammer()
-      .on("dragleft", function(e) {
-        $(this).css({left: e.gesture.deltaX});
-      })
+    $('.actionButtons').hammer()
+      // .on("dragleft", function(e) {
+      //   $(this).css({left: e.gesture.deltaX});
+      // })
       .on("dragend", function(e) {
-        if (e.gesture.deltaX < 0) {
-          toggleButtons();
-        } else if (e.gesture.deltaX > dragCutoff) {
+        // if (e.gesture.deltaX < 0) {
+        //   toggleButtons();
+        // }
+        if (e.gesture.deltaX > dragCutoff) {
           if (!$(this).data('swiped'))
             window.history.back();
         } else {
           $(this).closest('.article').animate({left: 0}, animationDuration);
         }
       })
-      .on("tap", toggleButtons)
+      // .on("tap", toggleButtons)
       .on("dragright", function(e) {
-        if ($(this).data('swiped')) {
-          $(this).animate({left: 0}, animationDuration, function() {
-            $(this).data('swiped', false);
-          });
-        } else {
-          $(this).closest('.article').css({left: e.gesture.deltaX}); 
-        }
+        // if ($(this).data('swiped')) {
+        //   $(this).animate({left: 0}, animationDuration, function() {
+        //     $(this).data('swiped', false);
+        //   });
+        // }
+        $(this).closest('.article').css({left: e.gesture.deltaX}); 
       });
 
     // $('.article-list').hammer().on("tap", ".swipe", function(e) {
@@ -70,7 +80,7 @@
     function toggleButtons(e) {
       if (e) {e.preventDefault(); e.stopPropagation();}
 
-      var $title = $('#articleTitle');
+      var $title = $('#articleBanner');
       if ($title.data('swiped')) {
         $title.animate({left: 0}, animationDuration, function() {
           $(this).data('swiped', false);

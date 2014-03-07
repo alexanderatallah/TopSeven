@@ -48,14 +48,25 @@ a {
   z-index: 1;
   position: absolute;
   top: 0;
-  right: 0;
+  left: 0;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.46);
 }
 
   .actionButtons .btn {
-    float: right;
+    float: left;
     border-radius: 0;
     height: 45px;
+    padding: 10px 15px;
   }
+
+  .deleteButton {
+
+  }
+
+/* HELPERS */
+#articleHelper {
+  padding-top: 60px;
+}
 
 
 /* CUSTOMIZE THE NAVBAR

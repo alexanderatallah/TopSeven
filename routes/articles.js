@@ -7,7 +7,7 @@ var models = require('../models');
 exports.indexPage = function(req, res){
   var options = {
     "fancy": true,
-    "experiment": true
+    "experiment": false
   };
   res.render('index', options);
 };
@@ -15,7 +15,7 @@ exports.indexPage = function(req, res){
 exports.indexPageSimple = function(req, res){
   var options = {
     "fancy": false,
-    "experiment": true
+    "experiment": false
   };
   res.render('index', options);
 };

@@ -30,7 +30,7 @@ function articleClick() {
 
 function refreshArticles() {
   // GOOGLE ANALYTICS
-  ga("send", "event", "index", "reload");
+  // ga("send", "event", "index", "reload");
   // END GOOGLE ANALYTICS
 
   var spinner = $("#refresher").find(".spinner-inline");
@@ -87,6 +87,7 @@ function replaceArticles(articles, _excludeSeen) {
   while (i < limit) {
     var article = articles[i];
     if (_excludeSeen && Seven.isSeen(article)) {
+      // This will load new articles
       if (limit < articles.length) limit++;
     } else {
       articleList += template(article, i); 

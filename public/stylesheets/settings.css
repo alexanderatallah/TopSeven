@@ -1,8 +1,8 @@
-body {
+#settingsList {
 	margin-left:10px;
 }
 
-div label input {
+#settingsList div label input {
    margin-right:100px;
 }
 
@@ -46,7 +46,7 @@ div label input {
     height: 60px;
 }
 
-button {
+#settingsList button {
 	padding:10px;
 	border-radius: 4px;
 	margin:5px;
