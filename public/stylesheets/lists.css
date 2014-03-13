@@ -12,8 +12,12 @@
     overflow: hidden;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.36);
     position: relative;
-    z-index: 2;
+    z-index: 10;
   }
+
+    .list-group-item iframe {
+      margin-top: 12px;
+    }
 
   .article-list .list-group {
     margin: 0;

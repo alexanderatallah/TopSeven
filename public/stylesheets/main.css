@@ -9,6 +9,17 @@ body {
   /*background: -webkit-linear-gradient(top, #e8ffe5 0%,#ffe8e8 46%,#f2faff 100%);*/
 }
 
+.lightbox {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0,0,0,0.4);
+  z-index: 100;
+  display: none;
+}
+
 a {
   color: #00B7FF;
 }

@@ -22,6 +22,7 @@
 
     initArticles();
     articleClick();
+    articleHold();
     if(!$("#welcomeHelper").is(":visible") && !JSON.parse(localStorage.helpers).swipeHelper) {
       $("#swipeHelper").show();
       checkHelper("swipeHelper");
@@ -46,6 +47,46 @@
     if (!articles || articles.length == 0) refreshArticles();
     else replaceArticles(articles);
   }
+
+  function articleHold() {
+    var bufferFromTop = $(".navbar-wrapper").outerHeight() + 20;
+    $('.article-list').hammer().on("hold", ".list-group-item", function(e) {
+      var id = $(this).closest('a').data("id");
+      move(this)
+        .scale(1)
+        .y(0)
+        .duration('0.1s')
+        .end();
+      var distToTop = -1*$(this).offset().top;
+      $article = $(this);
+      var prevHeight = $article.height();
+      $article.css("z-index", 101).animate({
+          top: distToTop + bufferFromTop,
+          height: 500
+        }, function () {
+          $(".lightbox").fadeIn(400, function() {
+            $(this).one("click", function() {
+              $(this).fadeOut();
+              $article.find("iframe").remove();
+              $article.css("z-index", "").animate({
+                top: 0,
+                height: prevHeight
+              }, function() {
+                $(this).css("height", "");
+                scrollAnimation();
+              });
+            });
+          });
+          var $frame = $("<iframe width='100%'>")
+            .appendTo(this);
+          $frame
+            .height($(this).outerHeight() + 40 - $frame.offset().top);
+          $frame.attr('src', Seven.getArticle(id).url);
+        });
+    });
+  }
+
+
 
   function scrollAnimation(_e) {
     {{#if fancy}}
@@ -93,7 +134,7 @@
 
   function enableSwiping() {
     var animationDuration = 300;
-    $('.article-list').hammer().on("swipeleft", ".swipe", function(e) {
+    $('.article-list').hammer().on("swipeleft", ".list-group-item", function(e) {
       var id = $(this).closest('a').data("id");
       console.log(id);
 
