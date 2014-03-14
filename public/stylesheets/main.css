@@ -58,10 +58,10 @@ a {
 .actionButtons {
   z-index: 1;
   position: absolute;
-  position: -webkit-sticky;
+  /*position: -webkit-sticky;
   position: -moz-sticky;
   position: -ms-sticky;
-  position: -o-sticky;
+  position: -o-sticky;*/
   top: 0;
   left: 0;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.46);
