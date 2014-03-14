@@ -63,6 +63,10 @@ a {
   background-color: white;
 }
 
+#articleFrame {
+  background-color: white;
+}
+
 .actionButtons {
   z-index: 1;
   position: absolute;
