@@ -25,7 +25,7 @@
     initArticles();
     articleClick();
     articleHold();
-    if(JSON.parse(localStorage.helpers).welcomeHelper && !JSON.parse(localStorage.helpers).swipeHelper) {
+    if(localStorage.helpers && JSON.parse(localStorage.helpers).welcomeHelper && !JSON.parse(localStorage.helpers).swipeHelper) {
       checkHelper("swipeHelper");
     }
     
@@ -120,7 +120,7 @@
       var $el = $(this);
       var id = $(this).closest('a').data("id");
       // console.log(id);
-      ev.gesture.preventDefault();
+      // ev.gesture.preventDefault();
 
       switch(ev.type) {
         case 'dragleft':
@@ -135,7 +135,7 @@
 
         case 'release':
           // more then 50% moved, navigate
-          if(Math.abs(ev.gesture.deltaX) > 40) {
+          if(Math.abs(ev.gesture.deltaX) > $el.width()/2) {
             if(ev.gesture.direction == 'left') {
               deleteArticle(id, $el);
             }

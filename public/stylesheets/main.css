@@ -50,6 +50,10 @@ a {
   margin: 0;
 }
 
+.whitewrapper, .article {
+  background-color: white;
+}
+
 /* Custom */
 
 #articleTitle {
@@ -60,10 +64,6 @@ a {
   text-overflow: ellipsis;
   z-index: 2;
   margin: 0;
-  background-color: white;
-}
-
-#articleFrame {
   background-color: white;
 }
 

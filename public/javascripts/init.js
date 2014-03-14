@@ -20,7 +20,7 @@ function checkHelper(helperId) {
       });
     } else {
       $("#" + helperId).slideDown();
-      markHelperAsSeen();
+      if ('trashHelper' != helperId) markHelperAsSeen();
     }
   }
   function markHelperAsSeen() {

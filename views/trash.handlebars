@@ -1,6 +1,6 @@
-<div id="trashHelper" class="helper alert alert-warning alert-dismissable">
+<div id="trashHelper" class="helper alert alert-warning alert-dismissable" style="display:none">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-  <strong>Swipe left</strong> on an article to undelete it.
+  Until new articles come out, here are some you may have skimmed.
 </div>
 
 <div class="col-sm-4 article-list" id="deletedList">
@@ -18,7 +18,7 @@
       e.preventDefault();
     });
 
-    enableSwiping();
+    // enableSwiping();
   });
 
   function initDeletedArticles() {
