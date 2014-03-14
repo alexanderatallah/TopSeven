@@ -42,8 +42,22 @@
       window.location = "/";
     });
 
+    registerArticleView();
+
     articleViewSwiping();
   });
+
+  function registerArticleView() {
+    var article = Seven.getArticle(getParam("id"));
+    var weights = Seven.loadFacetWeights();
+    if (article.des_facet instanceof Array) {
+      _.each(article.des_facet, function(el) {
+        weights[el] = weights[el] || 0;
+        weights[el] += 1;
+      });
+    }
+    Seven.saveFacetWeights(weights);
+  }
 
   function articleViewSwiping() {
     var animationDuration = 200;

@@ -54,6 +54,12 @@ a {
   background-color: white;
 }
 
+.navbar-brand {
+  padding: 14px 15px;
+  font-size: 26px;
+  text-transform: lowercase;
+}
+
 /* Custom */
 
 #articleTitle {
@@ -84,10 +90,6 @@ a {
     border-radius: 0;
     height: 45px;
     padding: 10px 15px;
-  }
-
-  .deleteButton {
-
   }
 
 /* HELPERS */

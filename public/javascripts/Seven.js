@@ -3,6 +3,7 @@
 window.Seven = {
   SEVEN: 7,
   VIEW_COUNT_WEIGHT: 2,
+  FACET_WEIGHT: 4,
 
   /**
    * Saves articles
@@ -19,6 +20,10 @@ window.Seven = {
 
   saveDeletedArticles: function(articles) {
     localStorage['deleted-articles'] = JSON.stringify(articles);
+  },
+
+  saveFacetWeights: function(weights) {
+    localStorage['facet-weights'] = JSON.stringify(weights);
   },
 
   /**
@@ -41,6 +46,11 @@ window.Seven = {
   load_: function(namespace) {
     localStorage[namespace] = localStorage[namespace] || JSON.stringify([]);
     return JSON.parse(localStorage[namespace]);
+  },
+
+  loadFacetWeights: function() {
+    localStorage["facet-weights"] = localStorage["facet-weights"] || JSON.stringify({});
+    return JSON.parse(localStorage["facet-weights"]);
   },
 
   /**
@@ -183,17 +193,29 @@ window.Seven = {
   },
 
   /**
-   * Ranks an article
+   * Ranks an article, lower numbers being higher rank
    * @optional _i index of article in list
    * @optional _metadata article info from server
    * @public
    */
   rankArticle: function(article, _metadatum, _i) {
+    var priority = article.views;
+    priority = priority - this.FACET_WEIGHT*Math.log(this.facetWeight_(article));
     if (_metadatum && _metadatum.view_count) {
-      return article.views - this.VIEW_COUNT_WEIGHT*Math.log(_metadatum.view_count);
-    } else {
-      return article.views;
+      priority = priority - this.VIEW_COUNT_WEIGHT*Math.log(_metadatum.view_count);
     }
+    return priority;
+  },
+
+  facetWeight_: function(article) {
+    var score = 0;
+    var weights = this.loadFacetWeights();
+    if (article.des_facet instanceof Array) {
+      _.each(article.des_facet, function(el) {
+        score += (weights[el] || 0);
+      });
+    }
+    return score;
   },
 
   /**
