@@ -6,7 +6,7 @@ body {
   padding-top: 50px;
   color: #5a5a5a;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  /*background: -webkit-linear-gradient(top, #e8ffe5 0%,#ffe8e8 46%,#f2faff 100%);*/
+  background: -webkit-linear-gradient(top, #515D5F 0%,#2E2E2E 100%);
 }
 
 .lightbox {
@@ -15,9 +15,14 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 100;
-  display: none;
+  display: none; 
+
+  font-size: 30px;
+  color: white;
+  text-align: center;
+  padding-top: 50%;
 }
 
 a {
@@ -94,6 +99,7 @@ a {
   left: 0;
   right: 0;
   z-index: 20;
+  font-family: "Helvetica Neue", Helvetica;
 }
 
 /* Flip around the padding for proper display in narrow viewports */
@@ -104,6 +110,15 @@ a {
 .navbar-wrapper .navbar {
   padding-left: 15px;
   padding-right: 15px;
+}
+.navbar-inverseGRADIENT {
+  background: #2e2e2e; /* Old browsers */
+  background: -moz-linear-gradient(top, #2e2e2e 0%, #2e2e2e 49%, #353535 50%, #222222 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#2e2e2e), color-stop(49%,#2e2e2e), color-stop(50%,#353535), color-stop(100%,#222222)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top, #2e2e2e 0%,#2e2e2e 49%,#353535 50%,#222222 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top, #2e2e2e 0%,#2e2e2e 49%,#353535 50%,#222222 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top, #2e2e2e 0%,#2e2e2e 49%,#353535 50%,#222222 100%); /* IE10+ */
+  background: linear-gradient(to bottom, #2e2e2e 0%,#2e2e2e 49%,#353535 50%,#222222 100%); /* W3C */
 }
 
 /* Add padding to icons */
