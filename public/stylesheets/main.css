@@ -9,7 +9,7 @@ body {
   background: -webkit-linear-gradient(top, #515D5F 0%,#2E2E2E 100%);
 }
 
-.lightbox {
+#lightbox {
   position: fixed;
   top: 0;
   bottom: 0;
@@ -17,13 +17,16 @@ body {
   right: 0;
   background-color: rgba(0, 0, 0, 0.7);
   z-index: 100;
-  display: none; 
+  display: none;
 
-  font-size: 30px;
   color: white;
   text-align: center;
   padding-top: 50%;
 }
+
+  #lightbox p {
+    padding: 0 10px;
+  }
 
 a {
   color: #00B7FF;

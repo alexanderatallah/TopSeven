@@ -1,11 +1,13 @@
-<div id="welcomeHelper" class="alert alert-info alert-dismissable">
-  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-  Welcome to <strong>Seven</strong>! Here's the news you've missed in the past 7 days. Tap an article to view it.
+<div id="welcomeHelper" class="alert alert-info alert-dismissable" style="display:none">
+  <!-- <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button> -->
+  <h1>Welcome to <strong>Seven</strong>!</h1>
+  <p style="text-align: left">Here's the news you've missed in the past 7 days: only the most important pieces from the New York Times.</p>
+  <p><strong>Tap to start</strong></p>
 </div>
 
 <div id="swipeHelper" class="alert alert-warning alert-dismissable" style="display:none">
   <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-  Lastly, you can swipe articles <strong>left to delete</strong>. Seven will learn which articles are best for you. <strong>Go find your Seven.</strong>
+  Lastly, you can swipe articles <strong>left to delete</strong>. Seven learns which news is most interesting to you. <strong>Go find your Seven.</strong>
 </div>
 
 <div class="article-list" id="articleList">
@@ -23,8 +25,7 @@
     initArticles();
     articleClick();
     articleHold();
-    if(!$("#welcomeHelper").is(":visible") && !JSON.parse(localStorage.helpers).swipeHelper) {
-      $("#swipeHelper").show();
+    if(JSON.parse(localStorage.helpers).welcomeHelper && !JSON.parse(localStorage.helpers).swipeHelper) {
       checkHelper("swipeHelper");
     }
     
@@ -115,29 +116,34 @@
   }
 
   function enableSwiping() {
-    var animationDuration = 300;
-    $('.article-list').hammer().on("swipeleft", ".list-group-item", function(e) {
+    $('.article-list').hammer({ drag_lock_to_axis: true }).on("release dragleft swipeleft", ".list-group-item", function(ev) {
+      var $el = $(this);
       var id = $(this).closest('a').data("id");
-      console.log(id);
+      // console.log(id);
+      ev.gesture.preventDefault();
 
-      var $ghostDiv = $("<div class='ghostDiv ghostDivDelete' />").html("<div>Deleted</div>");
-      $ghostDiv.css({
-        top: $(this).offset().top,
-        height: $(this).height(),
-      });
-      $ghostDiv.appendTo("body");
+      switch(ev.type) {
+        case 'dragleft':
+          var leftMove = ev.gesture.deltaX;
+          $el.css({left: leftMove});
+          break;
 
-      $(this).animate({left: "-100%"}, animationDuration, function() {
-        var el = this;
-        $ghostDiv.fadeOut(1000, function() {
-          $(el).remove();
-          $(this).remove();
-          scrollAnimation();
-        });
-      });
-      var article = Seven.getArticle(id);
+        case 'swipeleft':
+          ev.gesture.stopDetect();
+          deleteArticle(id, $el);
+          break;
 
-      Seven.deleteArticle(article);
+        case 'release':
+          // more then 50% moved, navigate
+          if(Math.abs(ev.gesture.deltaX) > 40) {
+            if(ev.gesture.direction == 'left') {
+              deleteArticle(id, $el);
+            }
+          } else {
+            $el.animate({left: 0});
+          }
+          break;
+      }
     });
     // .on("swiperight", ".swipe", function(e) {
     //   var id = $(this).closest('a').data("id");
@@ -162,6 +168,27 @@
 
     //   Seven.saveArticle(article);
     // });
+  }
+
+  function deleteArticle(id, $el) {
+    var animationDuration = 300;
+    var $ghostDiv = $("<div class='ghostDiv ghostDivDelete' />").html("<div>Deleted</div>");
+    $ghostDiv.css({
+      top: $el.offset().top,
+      height: $el.outerHeight(),
+    });
+    $ghostDiv.appendTo("body");
+
+    $el.animate({left: "-100%"}, animationDuration, function() {
+      $ghostDiv.fadeOut(1000, function() {
+        $el.remove();
+        $(this).remove();
+        scrollAnimation();
+      });
+    });
+    var article = Seven.getArticle(id);
+
+    Seven.deleteArticle(article);
   }
 
 </script>

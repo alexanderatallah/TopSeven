@@ -11,9 +11,19 @@ $(document).ready(function() {
  */
 function checkHelper(helperId) {
   var helpers = localStorage.helpers ? JSON.parse(localStorage.helpers) : {};
-  if (helpers[helperId]) {
-    $("#" + helperId).hide();
-  } else {
+  if (!helpers[helperId]) {
+    if ('welcomeHelper' == helperId) {
+      $("#lightbox").html($("#welcomeHelper").html()).fadeIn();
+      $("#lightbox").one('click', function() {
+        markHelperAsSeen();
+        $(this).fadeOut(400, function() { $(this).empty(); });
+      });
+    } else {
+      $("#" + helperId).slideDown();
+      markHelperAsSeen();
+    }
+  }
+  function markHelperAsSeen() {
     helpers[helperId] = true;
     localStorage.helpers = JSON.stringify(helpers);
   }
